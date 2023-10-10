@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <!-- Шрифты с Google Fonts. -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Стили сайта. -->
+    <link rel="stylesheet" href="{% static 'main_forms/css/style.css'%}" type="text/css">
+</head>
+<body>
+
+    <div id="main_block">
+
+        <ul class="menu">
+            <li>меню</li>
+            <li>меню</li>
+            <li>меню</li>
+            <li>меню</li>
+            <li>меню</li>
+        </ul>
+        <!-- /.menu -->
+
+        <div id="form-n-table">
+            <div class="table">
+            </div>
+            <!-- /.table -->
+            <div class="form">
+            </div>
+            <!-- /.form -->
+            <div class="search-block">
+                <button>добавить запись</button>
+                <input type="text" placeholder="Поиск">
+                <button>Найти</button>
+            </div>
+
+            <p>{{ page_name }}</p>
+
+            <!-- /.search-block -->
+        </div>
+        <!-- /#form-n-table -->
+
+    </div>
+    <!-- /.main_block -->
+
+</body>
+</html>
