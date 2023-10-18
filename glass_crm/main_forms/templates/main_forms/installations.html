@@ -1,0 +1,31 @@
+{% extends "main_forms/base.html" %}
+
+{% block form_block %}
+
+<form method="post">
+    <input type="text" list="contract_number" name="contract_number" placeholder="Номер договора" required><br>
+    <datalist id="contract_number">
+        <option>1</option>
+    </datalist>
+
+    <label for="brigade">Бригада</label><br>
+    <select name="brigade" id="brigade" required>
+    <option value="value">value</option>
+    </select><br>
+
+    <label for="delivery_date">Дата доставки от завода</label><br>
+    <input type="date" id="delivery_date" name="delivery_date" required><br>
+
+    <label for="installation_date">Дата монтажа</label><br>
+    <input type="date" id="installation_date" name="installation_date" required><br>
+
+    <input type="text" id="square_meters" name="square_meters" placeholder="Квадратные метры"><br>
+    <input type="text" id="slopes_width" name="slopes_width" placeholder="Ширина откосов"><br>
+    <input type="text" id="linear_meters" name="linear_meters" placeholder="Погонные метры"><br>
+    <input type="text" id="additional_works" name="additional_works" placeholder="Дополнительные работы"><br>
+    <input type="text" id="comments" name="comments" placeholder="Комментарии"><br>
+
+    <input type="submit" value="Отправить">
+</form>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "main_forms/base.html" %}
+
+{% block form_block %}
+
+contract_number
+address
+customer
+phone
+price
+prepayment
+debt
+delivery_date
+montage_date
+delivery_date_by_contract
+
+
+<form action="{% url 'main' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_div }}
+    <button type="submit" name="submit">Отправить</button>
+</form>
+
+
+<!-- <form action="" method="post">
+    <input type="text" id="contract_number" name="contract_number" placeholder="Номер договора" required><br>
+    <input type="text" id="address" name="address" placeholder="Адрес" required><br>
+    <input type="text" id="customer" name="customer" placeholder="ФИО клиента" required><br>
+    <input type="text" id="phone" name="phone" placeholder="Номер телефона" required><br>
+    <input type="text" id="price" name="price" placeholder="Стоимость" required><br>
+    <input type="text" id="prepayment" name="prepayment" placeholder="Предоплата" required><br>
+    <input type="" id="debt" name="debt" placeholder="Долг" required><br>
+
+    <label for="delivery_date">Дата доставки</label><br>
+    <input type="date" id="delivery_date" name="delivery_date" required><br>
+
+    <label for="montage_date">Дата монтажа</label><br>
+    <input type="date" id="montage_date" name="montage_date" required><br>
+
+    <label for="delivery_date_by_contract">Дата доставки по договору</label><br>
+    <input type="date" id="delivery_date_by_contract" name="delivery_date_by_contract" required><br>
+
+    <button type="submit" name="submit">Отправить</button>
+</form> -->
+
+{% endblock %}

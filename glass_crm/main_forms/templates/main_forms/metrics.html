@@ -1,0 +1,32 @@
+{% extends "main_forms/base.html" %}
+
+{% block form_block %}
+
+<form method="post">
+    <label for="appeal">Обращение</label><br>
+    <select name="appeal" id="appeal" required>
+        <option value="value">value</option>
+    </select><br>
+
+    <label for="measurer">Замерщик</label><br>
+    <select name="measurer" id="measurer" required>
+        <option value="value">value</option>
+    </select><br>
+
+    <label for="date">Дата замера</label><br>
+    <input type="date" id="date" name="date" required><br>
+
+    <label for="time">Время</label><br>
+    <input type="time" id="time" name="time" required><br>
+
+    <input type="text" id="customer" name="customer" placeholder="ФИО клиента" required><br>
+    <input type="tel" id="phone" name="phone" placeholder="Телефон" required><br>
+    <input type="text" id="address" name="address" placeholder="Улица, номер дома" required><br>
+    <input type="text" id="house" name="house" placeholder="Квартира, этаж, подъезд, код" required><br>
+    <input type="text" id="amount" name="amount" placeholder="Сумма расчета" required><br>
+    <input type="text" id="comments" name="comments" placeholder="Комментарии"><br>
+
+    <input type="submit" value="Отправить">
+</form>
+
+{% endblock %}

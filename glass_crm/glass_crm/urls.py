@@ -5,9 +5,6 @@ from main_forms import views
 
 
 urlpatterns = [
-    path("contracts", views.contracts),
-    path("orders", views.orders),
-    path("clients", views.clients),
-    path("installations", views.installations),
-    path("metrics", views.metrics),
+    path("", views.contracts, name="main"),
+    path("forms/contracts", views.contracts),
 ]

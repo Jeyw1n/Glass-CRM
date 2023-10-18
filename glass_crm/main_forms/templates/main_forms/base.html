@@ -18,30 +18,34 @@
     <div id="main_block">
 
         <ul class="menu">
-            <li>меню</li>
-            <li>меню</li>
-            <li>меню</li>
-            <li>меню</li>
-            <li>меню</li>
+            <li><a href="/forms/contracts">Договора</a></li>
+            <li><a href="forms/orders">Заказы</a></li>
+            <li><a href="forms/clients">Клиенты</a></li>
+            <li><a href="forms/installations">Монтажи</a></li>
+            <li><a href="forms/metrics">Замеры</a></li>
         </ul>
         <!-- /.menu -->
 
         <div id="form-n-table">
-            <div class="table">
-            </div>
-            <!-- /.table -->
-            <div class="form">
-            </div>
-            <!-- /.form -->
-            <div class="search-block">
+
+            <div class="search-block" style="background-color: #9999; padding: 12px;">
                 <button>добавить запись</button>
                 <input type="text" placeholder="Поиск">
                 <button>Найти</button>
             </div>
+            <!-- /.search-block -->
+
+            <div class="table">
+            </div>
+            <!-- /.table -->
+            <div class="form">
+                {% block form_block %}
+                {% endblock %}
+            </div>
+            <!-- /.form -->
 
             <p>{{ page_name }}</p>
 
-            <!-- /.search-block -->
         </div>
         <!-- /#form-n-table -->
 
