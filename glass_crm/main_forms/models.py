@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Contracts(models.Model):
-    contract_number = models.IntegerField(verbose_name='Номер договора')                   # Номер договора.
+    contract_number = models.IntegerField(verbose_name='Номер договора')                    # Номер договора.
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
     customer = models.CharField(max_length=255, verbose_name='ФИО клиента')                 # ФИО клиента.
     phone = models.CharField(max_length=255, verbose_name='Номер телефона')                 # Номер телефона.
