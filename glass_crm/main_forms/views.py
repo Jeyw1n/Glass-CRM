@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 
 from main_forms.forms import *
+from main_forms.models import *
 
 # Список форм:
 # contracts, orders, clients, installations, metrics.
 
 
 def contracts(request):
+    table_data = Contracts.objects.all()
+
     # Если это POST запрос.
     if request.method == 'POST':
         form = AddContract(request.POST)
@@ -24,4 +27,6 @@ def contracts(request):
     else:
         form = AddContract()
 
-    return render(request, f"main_forms/contracts.html", {"form": form})
+    context = {'table_data':  table_data,
+               "form": form}
+    return render(request, f"main_forms/contracts.html", context)

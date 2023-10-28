@@ -15,10 +15,80 @@
     delivery_date_by_contract
 -->
 
-<form action="{% url 'main' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_div }}
-    <button type="submit" name="submit">Отправить</button>
-</form>
+<style>
+  .table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+  }
 
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+  }
+
+  th {
+    padding: 12px 16px;
+    background-color: #f5f5f5;
+    font-weight: 500;
+    text-align: left;
+  }
+
+  td {
+    padding: 12px 16px;
+    border: 1px solid #f5f5f5;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+</style>
+
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Номер договора</th>
+        <th>Адрес</th>
+        <th>ФИО клиента</th>
+        <th>Телефон</th>
+        <th>Цена</th>
+        <th>Предоплата</th>
+        <th>Долг</th>
+        <th>Дата доставки</th>
+        <th>Дата монтажа</th>
+        <th>Дата доставки по договору</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table_data %}
+      <tr>
+        <td>{{ row.contract_number }}</td>
+        <td>{{ row.address }}</td>
+        <td>{{ row.customer }}</td>
+        <td>{{ row.phone }}</td>
+        <td>{{ row.price }}</td>
+        <td>{{ row.prepayment }}</td>
+        <td>{{ row.debt }}</td>
+        <td>{{ row.delivery_date }}</td>
+        <td>{{ row.montage_date }}</td>
+        <td>{{ row.delivery_date_by_contract }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<form action="{% url 'main' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_div }}
+  <button type="submit" name="submit">Отправить</button>
+</form>
 {% endblock %}
