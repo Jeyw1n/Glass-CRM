@@ -1,0 +1,44 @@
+{% extends "main_forms/base.html" %}
+
+{% block form_block %}
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Номер договора</th>
+        <th>Адрес</th>
+        <th>Завод</th>
+        <th>Номер заказа</th>
+        <th>Стоимость</th>
+        <th>Оплата</th>
+        <th>Дата доставки от завода</th>
+        <th>м2</th>
+        <th>Откосы</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table_data|slice:'::-1' %}
+      <tr>
+        <td>{{ row.contract_number }}</td>
+        <td>{{ row.address }}</td>
+        <td>{{ row.factory }}</td>
+        <td>{{ row.order_number }}</td>
+        <td>{{ row.price }}</td>
+        <td>{{ row.price }}</td>
+        <td>{{ row.delivery_date }}</td>
+        <td>{{ row.m2 }}</td>
+        <td>{{ row.slopes }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<form action="{% url 'create_order' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" name="submit">Отправить</button>
+</form>
+
+{% endblock %}

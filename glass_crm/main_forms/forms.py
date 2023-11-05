@@ -2,7 +2,7 @@ from django import forms
 from main_forms.models import *
 
 
-class AddContract(forms.ModelForm):
+class ContractsForm(forms.ModelForm):
     class Meta:
         model = Contracts
         fields = '__all__'
@@ -24,3 +24,10 @@ class AddContract(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+
+class OrdersForm(forms.ModelForm):
+    class Meta:
+        model = Orders
+        fields = '__all__'
+        widgets = {'delivery_date': forms.DateInput(attrs={'type': 'date'}), }

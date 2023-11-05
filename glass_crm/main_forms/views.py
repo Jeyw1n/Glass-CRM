@@ -7,12 +7,12 @@ from main_forms.models import *
 # contracts, orders, clients, installations, metrics.
 
 
-def contracts(request):
+def create_contract(request):
     table_data = Contracts.objects.all()
 
     # Если это POST запрос.
     if request.method == 'POST':
-        form = AddContract(request.POST)
+        form = ContractsForm(request.POST)
 
         # Была ли нам предоставлена действительная форма?
         if form.is_valid():
@@ -21,12 +21,31 @@ def contracts(request):
             task.save()
 
             # Редирект на главную (/)
-            return redirect('/')
+            return redirect('create_contract')
 
     # Если это GET запрос (или какой-либо ещё).
     else:
-        form = AddContract()
+        form = ContractsForm()
 
     context = {'table_data':  table_data,
                "form": form}
-    return render(request, f"main_forms/contracts.html", context)
+    return render(request, "main_forms/contracts.html", context)
+
+
+def create_order(request):
+    table_data = Orders.objects.all()
+
+    if request.method == 'POST':
+        form = OrdersForm(request.POST)
+
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.save()
+
+            return redirect('create_order')
+    else:
+        form = OrdersForm()
+
+    context = {'table_data': table_data,
+               "form": form}
+    return render(request, "main_forms/orders.html", context=context)
