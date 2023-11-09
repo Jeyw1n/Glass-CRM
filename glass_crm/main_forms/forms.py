@@ -31,3 +31,10 @@ class OrdersForm(forms.ModelForm):
         model = Orders
         fields = '__all__'
         widgets = {'delivery_date': forms.DateInput(attrs={'type': 'date'}), }
+
+
+# Клиенты клиенты customers Customers clients Clients.
+class CustomersForm(forms.ModelForm):
+    class Meta:
+        model = Customers
+        fields = ['address', 'customer', 'phone']

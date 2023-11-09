@@ -3,9 +3,9 @@
   <component name="Black">
     <option name="executionMode" value="BINARY" />
     <option name="pathToExecutable" value="P:\Apps\Anaconda\Scripts\black.exe" />
-    <option name="sdkUUID" value="2c0cef9b-e8c8-41a5-be0e-33659da43bd7" />
+    <option name="sdkName" value="Python 3.11 (GlassCRM)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (GlassCRM) (2)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (GlassCRM)" project-jdk-type="Python SDK" />
   <component name="PyCharmProfessionalAdvertiser">
     <option name="shown" value="true" />
   </component>

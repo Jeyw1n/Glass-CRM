@@ -7,45 +7,35 @@ from main_forms.models import *
 # contracts, orders, clients, installations, metrics.
 
 
-def create_contract(request):
-    table_data = Contracts.objects.all()
+# Шаблон страницы с формой.
+def create_entity(request, model, form_class, template_name, redirect_name):
+    table_data = model.objects.all()
 
     # Если это POST запрос.
     if request.method == 'POST':
-        form = ContractsForm(request.POST)
+        form = form_class(request.POST)
 
         # Была ли нам предоставлена действительная форма?
         if form.is_valid():
-            # Обработка данных формы и сохранение в БД.
             task = form.save(commit=False)
             task.save()
 
-            # Редирект на главную (/)
-            return redirect('create_contract')
-
+            return redirect(redirect_name)
     # Если это GET запрос (или какой-либо ещё).
     else:
-        form = ContractsForm()
+        form = form_class
 
-    context = {'table_data':  table_data,
-               "form": form}
-    return render(request, "main_forms/contracts.html", context)
+    context = {'table_data': table_data, "form": form}
+    return render(request, template_name, context=context)
+
+
+def create_contract(request):
+    return create_entity(request, Contracts, ContractsForm, "main_forms/contracts.html", "create_contract")
 
 
 def create_order(request):
-    table_data = Orders.objects.all()
+    return create_entity(request, Orders, OrdersForm, "main_forms/orders.html", "create_order")
 
-    if request.method == 'POST':
-        form = OrdersForm(request.POST)
 
-        if form.is_valid():
-            task = form.save(commit=False)
-            task.save()
-
-            return redirect('create_order')
-    else:
-        form = OrdersForm()
-
-    context = {'table_data': table_data,
-               "form": form}
-    return render(request, "main_forms/orders.html", context=context)
+def create_customer(request):
+    return create_entity(request, Customers, CustomersForm, "main_forms/customers.html", "create_customer")

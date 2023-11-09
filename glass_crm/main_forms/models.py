@@ -32,11 +32,12 @@ class Orders(models.Model):
 
 # Клиенты
 class Customers(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес
     customer = models.CharField(max_length=255, verbose_name='ФИО клиента')                 # ФИО клиента
-    phone = models.CharField(max_length=20, verbose_name='Телефон')                         # Телефон
-    contract_count = models.IntegerField(verbose_name='Кол-во договоров')                   # Кол-во договоров
-    contract_cost = models.IntegerField(verbose_name='Стоимость договоров')                 # Стоимость договоров
+    phone = models.CharField(max_length=12, verbose_name='Телефон')                         # Телефон
+    # contract_count = models.IntegerField(verbose_name='Кол-во договоров')                   # Кол-во договоров
+    # contract_cost = models.IntegerField(verbose_name='Стоимость договоров')                 # Стоимость договоров
     objects = models.Manager()
 
 

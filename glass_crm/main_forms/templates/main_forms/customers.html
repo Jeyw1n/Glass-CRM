@@ -1,0 +1,31 @@
+{% extends "main_forms/base.html" %}
+
+{% block form_block %}
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ФИО клиенты</th>
+        <th>Адрес</th>
+        <th>Телефон</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table_data|slice:'::-1' %}
+      <tr>
+        <td>{{ row.customer }}</td>
+        <td>{{ row.address }}</td>
+        <td>{{ row.phone }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<form action="{% url 'create_customer' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_div }}
+  <button type="submit" name="submit">Отправить</button>
+</form>
+{% endblock %}

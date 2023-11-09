@@ -13,7 +13,7 @@
         <th>Стоимость</th>
         <th>Оплата</th>
         <th>Дата доставки от завода</th>
-        <th>м2</th>
+        <th>Квадрвтные метры</th>
         <th>Откосы</th>
       </tr>
     </thead>
@@ -27,7 +27,7 @@
         <td>{{ row.price }}</td>
         <td>{{ row.price }}</td>
         <td>{{ row.delivery_date }}</td>
-        <td>{{ row.m2 }}</td>
+        <td>{{ row.square_meters }}</td>
         <td>{{ row.slopes }}</td>
       </tr>
       {% endfor %}
@@ -37,8 +37,7 @@
 
 <form action="{% url 'create_order' %}" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form.as_div }}
   <button type="submit" name="submit">Отправить</button>
 </form>
-
 {% endblock %}
