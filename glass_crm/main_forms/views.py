@@ -8,7 +8,7 @@ from main_forms.models import *
 
 
 # Шаблон страницы с формой.
-def create_entity(request, model, form_class, template_name, redirect_name):
+def create_entity(request, model, form_class, template_name):
     table_data = model.objects.all()
 
     # Если это POST запрос.
@@ -20,7 +20,6 @@ def create_entity(request, model, form_class, template_name, redirect_name):
             task = form.save(commit=False)
             task.save()
 
-            return redirect(redirect_name)
     # Если это GET запрос (или какой-либо ещё).
     else:
         form = form_class
@@ -30,12 +29,12 @@ def create_entity(request, model, form_class, template_name, redirect_name):
 
 
 def create_contract(request):
-    return create_entity(request, Contracts, ContractsForm, "main_forms/contracts.html", "create_contract")
+    return create_entity(request, Contracts, ContractsForm, "main_forms/contracts.html")
 
 
 def create_order(request):
-    return create_entity(request, Orders, OrdersForm, "main_forms/orders.html", "create_order")
+    return create_entity(request, Orders, OrdersForm, "main_forms/orders.html")
 
 
 def create_customer(request):
-    return create_entity(request, Customers, CustomersForm, "main_forms/customers.html", "create_customer")
+    return create_entity(request, Customers, CustomersForm, "main_forms/customers.html")
