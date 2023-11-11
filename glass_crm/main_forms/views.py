@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Count, Sum
 
 from main_forms.forms import *
 from main_forms.models import *
@@ -8,9 +9,7 @@ from main_forms.models import *
 
 
 # Шаблон страницы с формой.
-def create_entity(request, model, form_class, template_name):
-    table_data = model.objects.all()
-
+def create_entity(request, table_data, form_class, template_name):
     # Если это POST запрос.
     if request.method == 'POST':
         form = form_class(request.POST)
@@ -28,13 +27,20 @@ def create_entity(request, model, form_class, template_name):
     return render(request, template_name, context=context)
 
 
+def create_customer(request):
+    table_data = Customers.objects.annotate(
+        num_contracts=Count('contracts'),  # Количество связанных договоров
+        total_amount=Sum('contracts__price')  # Общая сумма договоров
+    )
+    return create_entity(request, table_data, CustomersForm, "main_forms/customers.html")
+
+
 def create_contract(request):
-    return create_entity(request, Contracts, ContractsForm, "main_forms/contracts.html")
+    table_data = Contracts.objects.all()
+    return create_entity(request, table_data, ContractsForm, "main_forms/contracts.html")
 
 
 def create_order(request):
-    return create_entity(request, Orders, OrdersForm, "main_forms/orders.html")
+    table_data = Orders.objects.all()
+    return create_entity(request, table_data, OrdersForm, "main_forms/orders.html")
 
-
-def create_customer(request):
-    return create_entity(request, Customers, CustomersForm, "main_forms/customers.html")

@@ -9,6 +9,8 @@
         <th>ФИО клиенты</th>
         <th>Адрес</th>
         <th>Телефон</th>
+        <th>Кол-во договоров</th>
+        <th>Стоимость договоров</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +19,8 @@
         <td>{{ row.customer_name }}</td>
         <td>{{ row.address }}</td>
         <td>{{ row.phone }}</td>
+        <td>{{ row.num_contracts }}</td>
+        <td>{{ row.total_amount }}</td>
       </tr>
       {% endfor %}
     </tbody>

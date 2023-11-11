@@ -16,7 +16,9 @@ class Customers(models.Model):
 
 # Договора
 class Contracts(models.Model):
-    customer = models.ForeignKey(Customers, on_delete=models.CASCADE)                       # Ссылка на модель клиентов
+    # Ссылка на модель клиентов
+    customer = models.ForeignKey(Customers, on_delete=models.CASCADE, related_name='contracts')
+
     contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
     price = models.IntegerField(verbose_name='Цена')                                        # Цена.
     prepayment = models.IntegerField(verbose_name='Предоплата')                             # Предоплата.
