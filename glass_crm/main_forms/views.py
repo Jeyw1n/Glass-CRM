@@ -29,8 +29,8 @@ def create_entity(request, table_data, form_class, template_name):
 
 def create_customer(request):
     table_data = Customers.objects.annotate(
-        num_contracts=Count('contracts'),  # Количество связанных договоров
-        total_amount=Sum('contracts__price')  # Общая сумма договоров
+        num_contracts=Count('contracts'),     # Количество связанных договоров.
+        total_amount=Sum('contracts__price')  # Общая сумма договоров.
     )
     return create_entity(request, table_data, CustomersForm, "main_forms/customers.html")
 
