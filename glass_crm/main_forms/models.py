@@ -1,12 +1,23 @@
 from django.db import models
 
 
+# Клиенты
+class Customers(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
+
+    address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес
+    customer_name = models.CharField(max_length=255, verbose_name='ФИО клиента')            # ФИО клиента
+    phone = models.CharField(max_length=12, verbose_name='Телефон')                         # Телефон
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.customer_name
+
+
 # Договора
 class Contracts(models.Model):
+    customer = models.ForeignKey(Customers, on_delete=models.CASCADE)                       # Ссылка на модель клиентов
     contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
-    address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
-    customer = models.CharField(max_length=255, verbose_name='ФИО клиента')                 # ФИО клиента.
-    phone = models.CharField(max_length=255, verbose_name='Номер телефона')                 # Номер телефона.
     price = models.IntegerField(verbose_name='Цена')                                        # Цена.
     prepayment = models.IntegerField(verbose_name='Предоплата')                             # Предоплата.
     debt = models.IntegerField(verbose_name='Долг')                                         # Долг.
@@ -27,17 +38,6 @@ class Orders(models.Model):
     delivery_date = models.DateField(verbose_name='Дата доставки от завода')                # Дата доставки.
     square_meters = models.CharField(max_length=255, verbose_name='м2')                     # м2.
     slopes = models.CharField(max_length=255, verbose_name='Откосы')                        # Откосы.
-    objects = models.Manager()
-
-
-# Клиенты
-class Customers(models.Model):
-    id = models.AutoField(primary_key=True, unique=True)
-    address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес
-    customer = models.CharField(max_length=255, verbose_name='ФИО клиента')                 # ФИО клиента
-    phone = models.CharField(max_length=12, verbose_name='Телефон')                         # Телефон
-    # contract_count = models.IntegerField(verbose_name='Кол-во договоров')                   # Кол-во договоров
-    # contract_cost = models.IntegerField(verbose_name='Стоимость договоров')                 # Стоимость договоров
     objects = models.Manager()
 
 

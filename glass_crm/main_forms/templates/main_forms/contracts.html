@@ -35,9 +35,9 @@
       {% for row in table_data|slice:'::-1' %}
       <tr>
         <td>{{ row.contract_number }}</td>
-        <td>{{ row.address }}</td>
-        <td>{{ row.customer }}</td>
-        <td>{{ row.phone }}</td>
+        <td>{{ row.customer.address }}</td>        <!-- Связанный адрес клиента -->
+        <td>{{ row.customer.customer_name }}</td>  <!-- Связанное ФИО клиента -->
+        <td>{{ row.customer.phone }}</td>          <!-- Связанный телефон клиента -->
         <td>{{ row.price }}</td>
         <td>{{ row.prepayment }}</td>
         <td>{{ row.debt }}</td>
