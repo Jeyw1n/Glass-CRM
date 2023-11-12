@@ -44,3 +44,7 @@ def create_order(request):
     table_data = Orders.objects.all()
     return create_entity(request, table_data, OrdersForm, "main_forms/orders.html")
 
+
+def create_metrics(request):
+    table_data = Metrics.objects.all()
+    return create_entity(request, table_data, MetricsForm, "main_forms/metrics.html")

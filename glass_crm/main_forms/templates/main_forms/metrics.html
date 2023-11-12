@@ -2,31 +2,32 @@
 
 {% block form_block %}
 
-<form method="post">
-    <label for="appeal">Обращение</label><br>
-    <select name="appeal" id="appeal" required>
-        <option value="value">value</option>
-    </select><br>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Адрес</th>
+        <th>Дата замера</th>
+        <th>Контакты</th>
+        <th>Комментарии</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table_data|slice:'::-1' %}
+      <tr>
+        <td>{{ row.address }}</td>
+        <td>{{ row.metrics_date }}</td>
+        <td>{{ row.contacts }}</td>
+        <td>{{ row.comments }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-    <label for="measurer">Замерщик</label><br>
-    <select name="measurer" id="measurer" required>
-        <option value="value">value</option>
-    </select><br>
-
-    <label for="date">Дата замера</label><br>
-    <input type="date" id="date" name="date" required><br>
-
-    <label for="time">Время</label><br>
-    <input type="time" id="time" name="time" required><br>
-
-    <input type="text" id="customer" name="customer" placeholder="ФИО клиента" required><br>
-    <input type="tel" id="phone" name="phone" placeholder="Телефон" required><br>
-    <input type="text" id="address" name="address" placeholder="Улица, номер дома" required><br>
-    <input type="text" id="house" name="house" placeholder="Квартира, этаж, подъезд, код" required><br>
-    <input type="text" id="amount" name="amount" placeholder="Сумма расчета" required><br>
-    <input type="text" id="comments" name="comments" placeholder="Комментарии"><br>
-
-    <input type="submit" value="Отправить">
+<form action="{% url 'create_metrics' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_div }}
+  <button type="submit" name="submit">Отправить</button>
 </form>
-
 {% endblock %}

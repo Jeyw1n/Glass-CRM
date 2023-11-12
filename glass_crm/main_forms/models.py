@@ -10,13 +10,14 @@ class Customers(models.Model):
     phone = models.CharField(max_length=12, verbose_name='Телефон')                         # Телефон
     objects = models.Manager()
 
+    # Возврат имени, чтобы отображать его в выпадающем списке формы.
     def __str__(self):
         return self.customer_name
 
 
 # Договора
 class Contracts(models.Model):
-    # Ссылка на модель клиентов
+    # Ссылка на модель клиентов.
     customer = models.ForeignKey(Customers, on_delete=models.CASCADE, related_name='contracts')
 
     contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
@@ -44,9 +45,9 @@ class Orders(models.Model):
 
 
 # Монтажи
-class Installation(models.Model):
-    contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
-    address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
+class Installations(models.Model):
+    # Номер договора.
+    # Адрес.
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
     square_meters_count = models.CharField(max_length=255, verbose_name='Кол-во м2')        # Кол-во м2.
     slopes = models.CharField(max_length=255, verbose_name='Откосы м/п')                    # Откосы м/п.
@@ -57,9 +58,9 @@ class Installation(models.Model):
 
 
 # Замеры
-class Measurement(models.Model):
-    address = models.CharField(max_length=255, verbose_name='Адрес')               # Адрес.
-    measurement_date = models.DateField(verbose_name='Дата замера')                # Дата замера.
-    contacts = models.CharField(max_length=255, verbose_name='Контакты')           # Контакты.
-    comments = models.TextField(verbose_name='Комментарии')                        # Комментарии.
+class Metrics(models.Model):
+    address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
+    metrics_date = models.DateField(verbose_name='Дата замера')                             # Дата замера.
+    contacts = models.CharField(max_length=255, verbose_name='Контакты')                    # Контакты.
+    comments = models.TextField(verbose_name='Комментарии')                                 # Комментарии.
     objects = models.Manager()
