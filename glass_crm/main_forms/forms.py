@@ -1,5 +1,5 @@
 from django import forms
-from main_forms.models import *
+from main_forms.models import Customers, Contracts, Orders, Metrics
 from django.utils.translation import gettext_lazy as _
 
 
@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 class CustomersForm(forms.ModelForm):
     class Meta:
         model = Customers
-        fields = ['address', 'customer_name', 'phone']
+        fields: list[str] = ['address', 'customer_name', 'phone']
 
 
 # Договора
@@ -15,15 +15,15 @@ class ContractsForm(forms.ModelForm):
     class Meta:
         model = Contracts
         customer = forms.ModelChoiceField(queryset=Customers.objects.all())
-        fields = ['customer', 'contract_number', 'price', 'prepayment', 'debt',
-                  'delivery_date', 'montage_date', 'delivery_date_by_contract']
-        exclude = ['debt']  # Исключаем поле 'debt' из формы
+        fields: list[str] = ['customer', 'contract_number', 'price', 'prepayment', 'debt',
+                             'delivery_date', 'montage_date', 'delivery_date_by_contract']
+        exclude: list[str] = ['debt']  # Исключаем поле 'debt' из формы
 
-        labels = {
+        labels: dict = {
             "customer": _("Клиент"),
         }
 
-        widgets = {
+        widgets: dict = {
             'delivery_date': forms.DateInput(attrs={'type': 'date'}),
             'montage_date': forms.DateInput(attrs={'type': 'date'}),
             'delivery_date_by_contract': forms.DateInput(attrs={'type': 'date'}),
@@ -47,12 +47,12 @@ class OrdersForm(forms.ModelForm):
     class Meta:
         model = Orders
         fields = '__all__'
-        widgets = {'delivery_date': forms.DateInput(attrs={'type': 'date'})}
+        widgets: dict = {'delivery_date': forms.DateInput(attrs={'type': 'date'})}
 
 
 # Замеры
 class MetricsForm(forms.ModelForm):
     class Meta:
         model = Metrics
-        fields = ['address', 'metrics_date', 'contacts', 'comments']
-        widgets = {'metrics_date': forms.DateInput(attrs={'type': 'date'})}
+        fields: list[str] = ['address', 'metrics_date', 'contacts', 'comments']
+        widgets: dict = {'metrics_date': forms.DateInput(attrs={'type': 'date'})}
