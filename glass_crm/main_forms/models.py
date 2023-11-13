@@ -1,5 +1,7 @@
 from django.db import models
 
+# related_name
+
 
 # Клиенты
 class Customers(models.Model):
@@ -8,6 +10,7 @@ class Customers(models.Model):
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес
     customer_name = models.CharField(max_length=255, verbose_name='ФИО клиента')            # ФИО клиента
     phone = models.CharField(max_length=12, verbose_name='Телефон')                         # Телефон
+
     objects = models.Manager()
 
     # Возврат имени, чтобы отображать его в выпадающем списке формы.
@@ -18,7 +21,7 @@ class Customers(models.Model):
 # Договора
 class Contracts(models.Model):
     # Ссылка на модель клиентов.
-    customer = models.ForeignKey(Customers, on_delete=models.CASCADE, related_name='contracts')
+    customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
 
     contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
     price = models.IntegerField(verbose_name='Цена')                                        # Цена.
@@ -27,20 +30,26 @@ class Contracts(models.Model):
     delivery_date = models.DateField(verbose_name='Дата доставки')                          # Дата доставки.
     montage_date = models.DateField(verbose_name='Дата монтажа')                            # Дата монтажа.
     delivery_date_by_contract = models.DateField(verbose_name='Дата доставки по договору')  # Дата доставки по договору.
+
     objects = models.Manager()
+
+    def __str__(self):
+        return self.contract_number
 
 
 # Заказы
 class Orders(models.Model):
-    contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
-    address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
+    # Ссылка на модель договоров.
+    contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)
+
     factory = models.CharField(max_length=255, verbose_name='Завод')                        # Завод.
     order_number = models.CharField(max_length=255, verbose_name='Номер заказа')            # Номер заказа.
     price = models.IntegerField(verbose_name='Стоимость')                                   # Стоимость.
-    # payment = models.IntegerField(verbose_name='Оплата')                                  # Оплата.
-    delivery_date = models.DateField(verbose_name='Дата доставки от завода')                # Дата доставки.
+    payment = models.IntegerField(verbose_name='Оплата')                                    # Оплата.
+    delivery_date = models.DateField(verbose_name='Дата доставки от завода')                # Дата доставки от завода.
     square_meters = models.CharField(max_length=255, verbose_name='м2')                     # м2.
     slopes = models.CharField(max_length=255, verbose_name='Откосы')                        # Откосы.
+
     objects = models.Manager()
 
 

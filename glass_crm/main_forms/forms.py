@@ -17,8 +17,8 @@ class ContractsForm(forms.ModelForm):
         customer = forms.ModelChoiceField(queryset=Customers.objects.all())
         fields: list[str] = ['customer', 'contract_number', 'price', 'prepayment', 'debt',
                              'delivery_date', 'montage_date', 'delivery_date_by_contract']
-        exclude: list[str] = ['debt']  # Исключаем поле 'debt' из формы
-
+        # Исключаем поля 'debt', 'delivery_date' и 'montage_date' из формы.
+        exclude: list[str] = ['debt', 'delivery_date', 'montage_date']
         labels: dict = {
             "customer": _("Клиент"),
         }
@@ -28,9 +28,6 @@ class ContractsForm(forms.ModelForm):
             'montage_date': forms.DateInput(attrs={'type': 'date'}),
             'delivery_date_by_contract': forms.DateInput(attrs={'type': 'date'}),
         }
-
-        # !!!!!!!!!!!!!!!!!
-        # Еще нужно исключить поля 'delivery_date' и 'montage_date'.
 
     # Высчитываем поле 'debt'.
     def save(self, commit=True):
@@ -46,8 +43,12 @@ class ContractsForm(forms.ModelForm):
 class OrdersForm(forms.ModelForm):
     class Meta:
         model = Orders
-        fields = '__all__'
+        contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
+        fields = ['contract', 'factory', 'order_number', 'price', 'payment', 'delivery_date', 'square_meters', 'slopes']
         widgets: dict = {'delivery_date': forms.DateInput(attrs={'type': 'date'})}
+        labels: dict = {
+            "contract": _("Договор"),
+        }
 
 
 # Замеры
