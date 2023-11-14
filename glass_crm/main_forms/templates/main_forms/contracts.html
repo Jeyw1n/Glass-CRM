@@ -26,8 +26,8 @@
         <th>Цена</th>
         <th>Предоплата</th>
         <th>Долг</th>
-        <th>Дата доставки</th>
-        <th>Дата монтажа</th>
+<!--        <th>Дата доставки</th>-->
+<!--        <th>Дата монтажа</th>-->
         <th>Дата доставки по договору</th>
       </tr>
     </thead>
@@ -35,14 +35,14 @@
       {% for row in table_data|slice:'::-1' %}
       <tr>
         <td>{{ row.contract_number }}</td>
-        <td>{{ row.customer.address }}</td>        <!-- Связанный адрес клиента. -->
+        <td>{{ row.address }}</td>
         <td>{{ row.customer.customer_name }}</td>  <!-- Связанное ФИО клиента. -->
         <td>{{ row.customer.phone }}</td>          <!-- Связанный телефон клиента. -->
         <td>{{ row.price }}</td>
         <td>{{ row.prepayment }}</td>
         <td>{{ row.debt }}</td>
-        <td>{{ row.delivery_date }}</td>
-        <td>{{ row.montage_date }}</td>
+<!--        <td>{{ row.delivery_date }}</td>-->
+<!--        <td>{{ row.montage_date }}</td>-->
         <td>{{ row.delivery_date_by_contract }}</td>
       </tr>
       {% endfor %}

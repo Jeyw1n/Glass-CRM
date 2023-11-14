@@ -24,11 +24,12 @@ class Contracts(models.Model):
     customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
 
     contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
+    address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес
     price = models.IntegerField(verbose_name='Цена')                                        # Цена.
     prepayment = models.IntegerField(verbose_name='Предоплата')                             # Предоплата.
     debt = models.IntegerField(verbose_name='Долг')                                         # Долг.
-    delivery_date = models.DateField(verbose_name='Дата доставки')                          # Дата доставки.
-    montage_date = models.DateField(verbose_name='Дата монтажа')                            # Дата монтажа.
+    # delivery_date = models.DateField(verbose_name='Дата доставки')                          # Дата доставки.
+    # montage_date = models.DateField(verbose_name='Дата монтажа')                            # Дата монтажа.
     delivery_date_by_contract = models.DateField(verbose_name='Дата доставки по договору')  # Дата доставки по договору.
 
     objects = models.Manager()
