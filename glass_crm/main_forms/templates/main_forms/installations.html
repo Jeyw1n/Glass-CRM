@@ -21,7 +21,7 @@
       {% for row in table_data|slice:'::-1' %}
       <tr>
         <td>{{ row.contract }}</td>
-        <td>{{ row.address }}</td>
+        <td>{{ row.contract.address }}</td>  <!-- Адрес, подтянутый из договоров. -->
         <td>{{ row.installation_date }}</td>
         <td>{{ row.square_meters }}</td>
         <td>{{ row.square_meters_price }}</td>

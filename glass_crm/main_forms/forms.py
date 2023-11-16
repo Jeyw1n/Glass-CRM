@@ -66,7 +66,7 @@ class InstallationsForm(forms.ModelForm):
         contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
         fields = ['contract', 'address', 'installation_date', 'square_meters', 'square_meters_price',
                   'linear_meters', 'linear_meters_price', 'additional_works']
-        exclude = ['total_amount', 'address']
+        exclude = ['total_amount']
 
         labels = {
             "contract": _("Договор"),

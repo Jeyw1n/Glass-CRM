@@ -57,22 +57,14 @@ class Orders(models.Model):
 # Монтажи
 class Installations(models.Model):
     contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)  # Ссылка на модель договоров.
-    address = models.CharField(max_length=255, verbose_name='Адрес')  # Адрес, подтянутый из договора.
 
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
-
     square_meters = models.FloatField(max_length=255, verbose_name='Кол-во м2')             # Кол-во м2.
     square_meters_price = models.FloatField(verbose_name='Стоимость м2')                    # Стоимость м2.
-
     linear_meters = models.FloatField(max_length=255, verbose_name='Кол-во м/п')            # Кол-во м/п.
     linear_meters_price = models.FloatField(verbose_name='Стоимость м/п')                   # Стоимость м/п.
-
     additional_works = models.FloatField(verbose_name='Доп. работы')                        # Доп. работы.
     total_amount = models.FloatField(verbose_name='Сумма')                                  # Сумма.
-
-    def save(self, *args, **kwargs):
-        self.address = self.contract.address
-        super().save(*args, **kwargs)
 
     objects = models.Manager()
 
