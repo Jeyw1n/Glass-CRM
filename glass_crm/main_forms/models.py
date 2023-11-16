@@ -1,10 +1,9 @@
 from django.db import models
 
-# related_name
 
-
-# Клиенты
 class Customers(models.Model):
+    """ Клиенты """
+
     id = models.AutoField(primary_key=True, unique=True)
 
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес
@@ -18,8 +17,9 @@ class Customers(models.Model):
         return self.customer_name
 
 
-# Договора
 class Contracts(models.Model):
+    """ Договора """
+
     # Ссылка на модель клиентов.
     customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
 
@@ -38,8 +38,9 @@ class Contracts(models.Model):
         return self.contract_number
 
 
-# Заказы
 class Orders(models.Model):
+    """ Заказы """
+
     # Ссылка на модель договоров.
     contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)
 
@@ -54,8 +55,9 @@ class Orders(models.Model):
     objects = models.Manager()
 
 
-# Монтажи
 class Installations(models.Model):
+    """ Монтажи """
+
     contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)  # Ссылка на модель договоров.
 
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
@@ -69,10 +71,12 @@ class Installations(models.Model):
     objects = models.Manager()
 
 
-# Замеры
 class Metrics(models.Model):
+    """ Замеры """
+
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
     metrics_date = models.DateField(verbose_name='Дата замера')                             # Дата замера.
     contacts = models.CharField(max_length=255, verbose_name='Контакты')                    # Контакты.
     comments = models.TextField(verbose_name='Комментарии')                                 # Комментарии.
+
     objects = models.Manager()
