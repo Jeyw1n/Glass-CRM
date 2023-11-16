@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count, Sum
 
-from main_forms.forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm
-from main_forms.models import Customers, Contracts, Orders, Metrics
+from main_forms.forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm, InstallationsForm
+from main_forms.models import Customers, Contracts, Orders, Metrics, Installations
 
 # Список форм:
 # contracts, orders, clients, installations, metrics.
@@ -23,7 +23,7 @@ def create_entity(request, table_data, form_class, template_name):
     else:
         form = form_class
 
-    context: dict = {'table_data': table_data, "form": form}
+    context = {'table_data': table_data, "form": form}
     return render(request, template_name, context=context)
 
 
@@ -48,3 +48,8 @@ def create_order(request):
 def create_metrics(request):
     table_data = Metrics.objects.all()
     return create_entity(request, table_data, MetricsForm, "main_forms/metrics.html")
+
+
+def create_installation(request):
+    table_data = Installations.objects.all()
+    return create_entity(request, table_data, InstallationsForm, "main_forms/installations.html")

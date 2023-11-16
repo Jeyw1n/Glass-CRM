@@ -2,30 +2,42 @@
 
 {% block form_block %}
 
-<form method="post">
-    <input type="text" list="contract_number" name="contract_number" placeholder="Номер договора" required><br>
-    <datalist id="contract_number">
-        <option>1</option>
-    </datalist>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Номер договора</th>
+        <th>Адрес</th>
+        <th>Дата монтажа</th>
+        <th>Кол-во м2</th>
+        <th>Стоимость м2</th>
+        <th>Кол-во м/п</th>
+        <th>Стоимость м/п</th>
+        <th>Доп. работы</th>
+        <th>Сумма</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table_data|slice:'::-1' %}
+      <tr>
+        <td>{{ row.contract }}</td>
+        <td>{{ row.address }}</td>
+        <td>{{ row.installation_date }}</td>
+        <td>{{ row.square_meters }}</td>
+        <td>{{ row.square_meters_price }}</td>
+        <td>{{ row.linear_meters }}</td>
+        <td>{{ row.linear_meters_price }}</td>
+        <td>{{ row.additional_works }}</td>
+        <td>{{ row.total_amount }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-    <label for="brigade">Бригада</label><br>
-    <select name="brigade" id="brigade" required>
-    <option value="value">value</option>
-    </select><br>
-
-    <label for="delivery_date">Дата доставки от завода</label><br>
-    <input type="date" id="delivery_date" name="delivery_date" required><br>
-
-    <label for="installation_date">Дата монтажа</label><br>
-    <input type="date" id="installation_date" name="installation_date" required><br>
-
-    <input type="text" id="square_meters" name="square_meters" placeholder="Квадратные метры"><br>
-    <input type="text" id="slopes_width" name="slopes_width" placeholder="Ширина откосов"><br>
-    <input type="text" id="linear_meters" name="linear_meters" placeholder="Погонные метры"><br>
-    <input type="text" id="additional_works" name="additional_works" placeholder="Дополнительные работы"><br>
-    <input type="text" id="comments" name="comments" placeholder="Комментарии"><br>
-
-    <input type="submit" value="Отправить">
+<form action="{% url 'create_installation' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_div }}
+  <button type="submit" name="submit">Отправить</button>
 </form>
-
 {% endblock %}
