@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.db.models import Count, Sum, Max
+from django.db.models import Count, Sum, Max, OuterRef, Subquery
 
 from main_forms.forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm, InstallationsForm
 from main_forms.models import Customers, Contracts, Orders, Metrics, Installations
@@ -36,15 +36,9 @@ def create_customer(request):
 
 
 def create_contract(request):
-    contracts_with_installation_dates = Contracts.objects.annotate(
-        installation_date=Max('installations__installation_date')
-    )
-
-    # Теперь у нас есть информация о договорах с аннотированным полем 'installation_date'
-    for contract in contracts_with_installation_dates:
-        print(f"Договор: {contract.contract_number}, Дата установки: {contract.installation_date}")
-
-    table_data = Contracts.objects.all()
+    subquery = Installations.objects.filter(contract=OuterRef('contract_number')).order_by('installation_date').values(
+        'installation_date')[:1]
+    table_data = Contracts.objects.annotate(installation_date=Subquery(subquery))
     return create_entity(request, table_data, ContractsForm, "main_forms/contracts.html")
 
 

@@ -2,19 +2,6 @@
 
 {% block form_block %}
 
-<!-- 
-    contract_number
-    address
-    customer
-    phone
-    price
-    prepayment
-    debt
-    delivery_date
-    montage_date
-    delivery_date_by_contract
--->
-
 <div class="table-container">
   <table>
     <thead>
@@ -26,8 +13,7 @@
         <th>Цена</th>
         <th>Предоплата</th>
         <th>Долг</th>
-<!--        <th>Дата доставки</th>-->
-<!--        <th>Дата монтажа</th>-->
+        <th>Дата монтажа</th>
         <th>Дата доставки по договору</th>
       </tr>
     </thead>
@@ -36,13 +22,12 @@
       <tr>
         <td>{{ row.contract_number }}</td>
         <td>{{ row.address }}</td>
-        <td>{{ row.customer.customer_name }}</td>  <!-- Связанное ФИО клиента. -->
-        <td>{{ row.customer.phone }}</td>          <!-- Связанный телефон клиента. -->
+        <td>{{ row.customer.customer_name }}</td>
+        <td>{{ row.customer.phone }}</td>
         <td>{{ row.price }}</td>
         <td>{{ row.prepayment }}</td>
         <td>{{ row.debt }}</td>
-<!--        <td>{{ row.delivery_date }}</td>-->
-<!--        <td>{{ row.montage_date }}</td>-->
+        <td>{{ row.installation_date }}</td>
         <td>{{ row.delivery_date_by_contract }}</td>
       </tr>
       {% endfor %}
