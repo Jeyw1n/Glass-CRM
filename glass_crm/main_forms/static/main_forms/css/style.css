@@ -1,3 +1,6 @@
+* {font-family: 'Roboto', sans-serif;}
+body {margin: 0;}
+
 #main_block{
     display: flex;
 }
@@ -6,4 +9,25 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+.menu div {
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+
+.menu div a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.menu div a.active-menu {
+  background-color: #85BBBB;
+}
+
+.menu div:hover {
+  background-color: #85BBBB;
 }
