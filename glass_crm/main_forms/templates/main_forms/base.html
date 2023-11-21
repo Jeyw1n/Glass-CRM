@@ -13,17 +13,25 @@
 
     <!-- Стили сайта. -->
     <link rel="stylesheet" href="{% static 'main_forms/css/style.css'%}" type="text/css">
+
+    <!-- Иконки для меню. -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-
+    <style>
+        #{{ this_page }} > a {
+          background-color: #85BBBB;
+          box-shadow: 5px 5px 10px #00000012;
+          color: white;
+        }
+    </style>
     <div id="main_block">
-
         <div class="menu">
-            <div><a href="/forms/contracts">Договора</a></div>
-            <div><a href="/forms/orders">Заказы</a></div>
-            <div><a href="/forms/customers">Клиенты</a></div>
-            <div><a href="/forms/installations">Монтажи</a></div>
-            <div><a href="/forms/metrics">Замеры</a></div>
+            <div id="contracts"><a href="/forms/contracts"><i class="material-icons md-18">sticky_note_2</i>Договора</a></div>
+            <div id="orders"><a href="/forms/orders"><i class="material-icons md-18">shopping_cart</i>Заказы</a></div>
+            <div id="customers"><a href="/forms/customers"><i class="material-icons md-18">group</i>Клиенты</a></div>
+            <div id="installations"><a href="/forms/installations"><i class="material-icons md-18">build</i>Монтажи</a></div>
+            <div id="metrics"><a href="/forms/metrics"><i class="material-icons md-18">square_foot</i>Замеры</a></div>
         </div>
         <!-- /.menu -->
 
