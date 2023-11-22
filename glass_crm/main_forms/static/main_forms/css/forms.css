@@ -2,3 +2,11 @@ form > div {
     display: grid;
     margin-bottom: 12px;
 }
+
+#form-n-table {
+    width: 100%;
+}
+
+form {
+    padding: 0px 25px;
+}
