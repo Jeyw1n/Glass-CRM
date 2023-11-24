@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th>Номер договора</th>
+        <th>Адрес</th>
         <th>Завод</th>
         <th>Номер заказа</th>
         <th>Стоимость</th>
@@ -20,6 +21,7 @@
       {% for row in table_data %}
       <tr>
         <td>{{ row.contract.contract_number }}</td>  <!-- Связанный номер договора. -->
+        <td>{{ row.contract.address }}</td>  <!-- Связанный адрес из договора. -->
         <td>{{ row.factory }}</td>
         <td>{{ row.order_number }}</td>
         <td>{{ row.price }}</td>
