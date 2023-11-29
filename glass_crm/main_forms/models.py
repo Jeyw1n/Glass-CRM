@@ -61,7 +61,7 @@ class Installations(models.Model):
     contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)  # Ссылка на модель договоров.
 
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
-    square_meters = models.FloatField(max_length=255, verbose_name='Кол-во м2')             # Кол-во м2.
+    # square_meters = models.FloatField(max_length=255, verbose_name='Кол-во м2')             # Кол-во м2.
     square_meters_price = models.FloatField(verbose_name='Стоимость м2')                    # Стоимость м2.
     linear_meters = models.FloatField(max_length=255, verbose_name='Кол-во м/п')            # Кол-во м/п.
     linear_meters_price = models.FloatField(verbose_name='Стоимость м/п')                   # Стоимость м/п.

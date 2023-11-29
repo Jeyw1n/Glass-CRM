@@ -64,7 +64,7 @@ class InstallationsForm(forms.ModelForm):
     class Meta:
         model = Installations
         contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
-        fields = ['contract', 'installation_date', 'square_meters', 'square_meters_price',
+        fields = ['contract', 'installation_date', 'square_meters_price',
                   'linear_meters', 'linear_meters_price', 'additional_works']
         exclude = ['total_amount']
 
@@ -75,7 +75,11 @@ class InstallationsForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)  # Вытаскиваем экземпляр без сохранения в БД.
-        instance.total_amount = (instance.square_meters * instance.square_meters_price +
+
+        # Достаем привязанный договор.
+        square_meters = Orders.objects.filter(contract=instance.contract).values("square_meters")[0]['square_meters']
+
+        instance.total_amount = (float(square_meters) * instance.square_meters_price +
                                  instance.linear_meters * instance.linear_meters_price +
                                  instance.additional_works)
         if commit:
