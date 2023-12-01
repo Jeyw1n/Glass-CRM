@@ -37,9 +37,6 @@
 
         <div id="form-n-table">
 
-            <div class="table"></div>
-            <!-- /.search-block -->
-
             <div class="search-block" style="background-color: #85bbbb; padding: 12px; box-shadow: -3px 3px 15px #0003;">
                 <!-- <button>добавить запись</button> -->
                 <input type="text" placeholder="Поиск">
@@ -64,5 +61,53 @@
     </div>
     <!-- /.main_block -->
 
+
+    <script>
+        const container = document.querySelector('.table-container');
+        const resizeHandle = document.querySelector('.resize-handle');
+
+        let isResizing = false;
+        let lastY = 0;
+
+        resizeHandle.addEventListener('mousedown', (e) => {
+          e.preventDefault(); // Предотвращает выделение текста на компьютере
+          isResizing = true;
+          lastY = e.clientY;
+        });
+
+        resizeHandle.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          isResizing = true;
+          lastY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (!isResizing) return;
+
+          const deltaY = e.clientY - lastY;
+          const newHeight = container.offsetHeight + deltaY;
+
+          container.style.height = `${newHeight}px`;
+          lastY = e.clientY;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+          if (!isResizing) return;
+
+          const deltaY = e.touches[0].clientY - lastY;
+          const newHeight = container.offsetHeight + deltaY;
+
+          container.style.height = `${newHeight}px`;
+          lastY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('mouseup', () => {
+          isResizing = false;
+        });
+
+        document.addEventListener('touchend', () => {
+          isResizing = false;
+        });
+    </script>
 </body>
 </html>

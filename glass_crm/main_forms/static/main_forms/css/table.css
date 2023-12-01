@@ -26,10 +26,11 @@ td {
     border: 1px solid #f5f5f5;
 }
 
-tr:last-child td {
-    
-}
-
-tbody tr:hover {
-    
+.resize-handle {
+    border-radius: 8px;
+    height: 6px;
+    cursor: ns-resize;
+    background-color: #dbdada;
+    margin: 0 auto;
+    width: 94%;
 }
