@@ -67,47 +67,37 @@
         const resizeHandle = document.querySelector('.resize-handle');
 
         let isResizing = false;
-        let lastY = 0;
+        let startY = 0;
 
-        resizeHandle.addEventListener('mousedown', (e) => {
-          e.preventDefault(); // Предотвращает выделение текста на компьютере
-          isResizing = true;
-          lastY = e.clientY;
-        });
+        resizeHandle.addEventListener('mousedown', startResize);
+        resizeHandle.addEventListener('touchstart', startResize);
 
-        resizeHandle.addEventListener('touchstart', (e) => {
+        function startResize(e) {
           e.preventDefault();
           isResizing = true;
-          lastY = e.touches[0].clientY;
-        });
+          startY = e.clientY || e.touches[0].clientY;
+        }
 
-        document.addEventListener('mousemove', (e) => {
+        document.addEventListener('mousemove', resize);
+        document.addEventListener('touchmove', resize);
+
+        function resize(e) {
           if (!isResizing) return;
 
-          const deltaY = e.clientY - lastY;
+          const newY = e.clientY || e.touches[0].clientY;
+          const deltaY = newY - startY;
           const newHeight = container.offsetHeight + deltaY;
 
           container.style.height = `${newHeight}px`;
-          lastY = e.clientY;
-        });
+          startY = newY;
+        }
 
-        document.addEventListener('touchmove', (e) => {
-          if (!isResizing) return;
+        document.addEventListener('mouseup', stopResize);
+        document.addEventListener('touchend', stopResize);
 
-          const deltaY = e.touches[0].clientY - lastY;
-          const newHeight = container.offsetHeight + deltaY;
-
-          container.style.height = `${newHeight}px`;
-          lastY = e.touches[0].clientY;
-        });
-
-        document.addEventListener('mouseup', () => {
+        function stopResize() {
           isResizing = false;
-        });
-
-        document.addEventListener('touchend', () => {
-          isResizing = false;
-        });
+        }
     </script>
 </body>
 </html>
