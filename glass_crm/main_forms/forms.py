@@ -41,14 +41,17 @@ class ContractsForm(forms.ModelForm):
 
 # Заказы
 class OrdersForm(forms.ModelForm):
+    factory = forms.ModelChoiceField(queryset=Factories.objects.all())
+
     class Meta:
         model = Orders
         contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
-        factory = forms.ModelChoiceField(queryset=Factories.objects.all())
+
         fields = ['contract', 'factory', 'order_number', 'price', 'payment', 'delivery_date', 'square_meters', 'slopes']
         widgets = {'delivery_date': forms.DateInput(attrs={'type': 'date'})}
         labels = {
             "contract": _("Договор"),
+            "factory": _("Завод"),
         }
 
 
