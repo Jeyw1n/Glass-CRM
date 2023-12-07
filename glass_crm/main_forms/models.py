@@ -49,7 +49,7 @@ class Orders(models.Model):
     price = models.FloatField(verbose_name='Стоимость')                                     # Стоимость.
     payment = models.FloatField(verbose_name='Оплата')                                      # Оплата.
     delivery_date = models.DateField(verbose_name='Дата доставки от завода')                # Дата доставки от завода.
-    square_meters = models.CharField(max_length=255, verbose_name='м2')                     # м2.
+    square_meters = models.CharField(max_length=255, verbose_name='Квадратные мерты')                     # м2.
     slopes = models.CharField(max_length=255, verbose_name='Откосы')                        # Откосы.
 
     objects = models.Manager()
@@ -62,7 +62,7 @@ class Installations(models.Model):
 
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
     # square_meters = models.FloatField(max_length=255, verbose_name='Кол-во м2')             # Кол-во м2.
-    square_meters_price = models.FloatField(verbose_name='Стоимость м2')                    # Стоимость м2.
+    square_meters_price = models.FloatField(verbose_name='Стоимость квадратных метров')                    # Стоимость м2.
     linear_meters = models.FloatField(max_length=255, verbose_name='Кол-во м/п')            # Кол-во м/п.
     linear_meters_price = models.FloatField(verbose_name='Стоимость м/п')                   # Стоимость м/п.
     additional_works = models.FloatField(verbose_name='Доп. работы')                        # Доп. работы.
