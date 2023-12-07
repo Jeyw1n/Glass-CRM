@@ -53,5 +53,8 @@ def create_metrics(request):
 
 
 def create_installation(request):
-    table_data = Installations.objects.all()
+    subquery = Orders.objects.filter(contract=OuterRef('contract')).order_by('square_meters').values(
+        'square_meters')[:1]
+    table_data = Installations.objects.annotate(square_meters=Subquery(subquery))
+
     return create_entity(request, table_data, InstallationsForm, "main_forms/installations.html", "installations")
