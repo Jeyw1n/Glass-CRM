@@ -37,3 +37,13 @@ body {margin: 0;}
     margin-right: 8px;
     vertical-align: bottom;
 }
+
+.search_button {
+    border-radius: 4px;
+    background-color: #004551;
+    border: none;
+    color: white;
+    padding: 2px 13px;
+    text-align: center;
+    font-size: 15px;
+}
