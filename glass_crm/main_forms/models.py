@@ -80,3 +80,13 @@ class Metrics(models.Model):
     comments = models.TextField(verbose_name='Комментарии')                                 # Комментарии.
 
     objects = models.Manager()
+
+
+class Factories(models.Model):
+    """ Список заводов """
+
+    factory = models.CharField(max_length=255)
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.factory
