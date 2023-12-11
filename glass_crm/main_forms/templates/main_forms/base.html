@@ -25,8 +25,12 @@
           color: white;
         }
     </style>
+
+    <div id="open-menu"></div>
+    <div class="inv_block tohideandshow"></div>
+
     <div id="main_block">
-        <div class="menu">
+        <div class="menu tohideandshow">
             <div id="contracts"><a href="/forms/contracts"><i class="material-icons md-18">sticky_note_2</i>Договора</a></div>
             <div id="orders"><a href="/forms/orders"><i class="material-icons md-18">shopping_cart</i>Заказы</a></div>
             <div id="customers"><a href="/forms/customers"><i class="material-icons md-18">group</i>Клиенты</a></div>
@@ -36,7 +40,7 @@
         <!-- /.menu -->
 
         <div id="form-n-table">
-
+            
             <div class="search-block" style="background-color: #85bbbb; padding: 12px; box-shadow: -3px 3px 15px #0003;">
                 <!-- <button>добавить запись</button> -->
                 <input type="text" placeholder="Поиск">
@@ -99,5 +103,7 @@
           isResizing = false;
         }
     </script>
+
+    <script src="{% static 'main_forms/menu_manager.js'%}"></script>
 </body>
 </html>

@@ -9,6 +9,12 @@ body {margin: 0;}
     list-style-type: none;
     margin: 0;
     padding: 0;
+
+    background-color: #fff;
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    display: none;
 }
 
 .menu div {
@@ -48,13 +54,6 @@ body {margin: 0;}
     font-size: 15px;
 }
 
-/*
-menu
-    background-color: #fff;
-    position: absolute;
-    z-index: 2;
-    height: 100%;
-
 
 .inv_block {
     width: 100%;
@@ -64,4 +63,12 @@ menu
     z-index: 1;
     display: none;
 }
-*/
+
+
+#open-menu {
+    z-index: 1;
+    background: red;
+    height: 100%;
+    position: absolute;
+    width: 4px;
+}
