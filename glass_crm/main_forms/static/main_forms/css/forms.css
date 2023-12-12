@@ -28,4 +28,5 @@ form {
     flex-direction: column;
     height: 100%;
     margin-right: 12px;
+    margin-left: 20px;
 }
