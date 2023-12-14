@@ -24,15 +24,17 @@ function handleMouseOut() {
 
 // Открыть свайпом на телефоне.
 function checkDirection() {
-    // if (touchendX < touchstartX) alert('swiped left!')
-    if (touchendX > touchstartX) {
-      toHideAndShow.forEach(function(element) {
-          element.style.display = 'block';
-          menu.classList.add('show');
-      });
-    }
+  const threshold = 350; // Минимальная длина свайпа для открытия меню
+
+  if (touchendX > touchstartX && (touchendX - touchstartX) > threshold) {
+    toHideAndShow.forEach(function(element) {
+      element.style.display = 'block';
+      menu.classList.add('show');
+    });
   }
-  ``
+}
+
+
 // Закрываем.
 function handleClick() {
     toHideAndShow.forEach(function(element) {
@@ -46,6 +48,11 @@ document.addEventListener('touchstart', e => {
   touchstartX = e.changedTouches[0].screenX
 })
 document.addEventListener('touchend', e => {
-  touchendX = e.changedTouches[0].screenX
-  checkDirection()
-})
+  touchendX = e.changedTouches[0].screenX;
+
+  const scrolledElement = e.target.closest('table'); // Здесь '.scrollable' должен быть заменен на селектор прокручиваемых элементов
+
+  if (touchendX !== touchstartX && !scrolledElement) {
+    checkDirection();
+  }
+});

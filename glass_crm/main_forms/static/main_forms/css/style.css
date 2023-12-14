@@ -73,7 +73,7 @@ body {margin: 0;}
 
 #open-menu {
     z-index: 1;
-    background: red;
+    background: #7e7e7e82;;
     height: 100%;
     position: absolute;
     width: 4px;
