@@ -79,3 +79,8 @@ body {margin: 0;}
     width: 4px;
     position: fixed;
 }
+
+
+.highlight {
+    background-color: yellow;
+}
