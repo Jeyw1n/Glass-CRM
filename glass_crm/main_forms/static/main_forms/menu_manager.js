@@ -1,5 +1,5 @@
 var openMenu = document.getElementById('open-menu');
-var invBlock = document.querySelector('.inv_block');
+var invBlock = document.querySelector('.invBlock');
 var toHideAndShow = document.querySelectorAll('.tohideandshow');
 var menu = document.querySelector('.menu');
 
@@ -24,9 +24,10 @@ function handleMouseOut() {
 
 // Открыть свайпом на телефоне.
 function checkDirection() {
-  const threshold = 350; // Минимальная длина свайпа для открытия меню
+  const threshold = 100; // Минимальная длина свайпа для открытия меню
+  const maxWidth = 767; // Максимальная ширина экрана для определения мобильного устройства
 
-  if (touchendX > touchstartX && (touchendX - touchstartX) > threshold) {
+  if (window.innerWidth <= maxWidth && touchendX > touchstartX && (touchendX - touchstartX) > threshold) {
     toHideAndShow.forEach(function(element) {
       element.style.display = 'block';
       menu.classList.add('show');
