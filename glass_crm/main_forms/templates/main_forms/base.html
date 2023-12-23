@@ -27,9 +27,10 @@
     </style>
 
     <!-- <div id="open-menu"></div> -->
-    <div class="invBlock tohideandshow"></div>
+    <div class="inv-block tohideandshow"></div>
 
-    <div id="main_block">
+    <div id="main-block">
+
         <div class="menu">
             <div id="contracts"><a href="/forms/contracts"><i class="material-icons md-18">sticky_note_2</i>Договора</a></div>
             <div id="orders"><a href="/forms/orders"><i class="material-icons md-18">shopping_cart</i>Заказы</a></div>
@@ -41,17 +42,17 @@
 
         <div id="form-n-table">
             
-            <div class="topBar">
+            <div class="top-bar">
                 <!-- <button>добавить запись</button> -->
                 
-                <div class="openMenuButton" onclick="openMenu(this)">
+                <div class="open-menu-button" onclick="openMenu(this)">
                     <div class="bar1"></div>
                     <div class="bar2"></div>
                     <div class="bar3"></div>
                 </div>
 
-                <input type="text" id="searchInput" placeholder="Поиск" style="margin-left: 20px;">
-                <!-- <button class="search_button">Найти</button> -->
+                <input type="text" id="search-input" placeholder="Поиск" style="margin-left: 20px;">
+
             </div>
             <!-- /.topBar -->
             
@@ -61,12 +62,12 @@
             
             <link rel="stylesheet" href="{% static 'main_forms/css/table.css'%}" type="text/css">
             <link rel="stylesheet" href="{% static 'main_forms/css/forms.css'%}" type="text/css">
-            <div class="formBlock">
+            <div class="form-block">
                 {% block form_block %}
                 {% endblock %}
             </div>
             <!-- /.form -->
-           
+
 
             <p>{{ page_name }}</p>
 

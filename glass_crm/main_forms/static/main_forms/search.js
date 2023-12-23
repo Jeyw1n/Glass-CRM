@@ -1,4 +1,4 @@
-document.getElementById('searchInput').addEventListener('input', function() {
+document.getElementById('search-input').addEventListener('input', function() {
     var searchText = this.value;
     var rows = document.querySelectorAll('.table-container tbody tr');
   

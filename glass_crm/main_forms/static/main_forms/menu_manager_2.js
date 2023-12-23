@@ -1,4 +1,4 @@
-var invBlock = document.querySelector('.invBlock');
+var invBlock = document.querySelector('.inv-block');
 var toHideAndShow = document.querySelectorAll('.tohideandshow');
 var menu = document.querySelector('.menu');
 

@@ -1,7 +1,7 @@
 * {font-family: 'Roboto', sans-serif;}
 body {margin: 0;}
 
-#main_block{
+#main-block{
     display: flex;
 }
 
@@ -23,24 +23,24 @@ body {margin: 0;}
 
 
 .menu div {
-  padding: 4px 10px;
-  width: 132px;
-  /* background-color: #f2f2f2; */
+    padding: 4px 10px;
+    width: 132px;
+    /* background-color: #f2f2f2; */
 }
 
 .menu div a {
-  display: block;
-  text-decoration: none;
-  color: #333;
-  padding: 8px 10px;
-  border-radius: 5px;
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 10px;
+    border-radius: 5px;
 }
 
 
 .menu a:hover {
-  background-color: #85BBBB;
-  box-shadow: 5px 5px 10px #00000012;
-  color: white;
+    background-color: #85BBBB;
+    box-shadow: 5px 5px 10px #00000012;
+    color: white;
 }
 
 .material-icons {
@@ -49,7 +49,7 @@ body {margin: 0;}
     vertical-align: bottom;
 }
 
-.search_button {
+.search-button {
     border-radius: 4px;
     background-color: #004551;
     border: none;
@@ -60,7 +60,7 @@ body {margin: 0;}
 }
 
 
-.invBlock {
+.inv-block {
     width: 100%;
     height: 100%;
     background-color: #0000006b;
@@ -90,7 +90,7 @@ body {margin: 0;}
     Menu button style.
 */
 
-.openMenuButton {
+.open-menu-button {
     display: inline-block;
     cursor: pointer;
     margin-left: 8px;
@@ -103,14 +103,13 @@ body {margin: 0;}
     margin: 6px 0;
     transition: 0.4s;
 }
-  
 
 
 /* 
     Top bar.
 */
 
-.topBar{
+.top-bar{
     background-color: #85bbbb;
     box-shadow: -3px 3px 15px #0003;
     display: flex;
@@ -118,7 +117,7 @@ body {margin: 0;}
 }
 
 /* Search input field. */
-#searchInput {
+#search-input {
     margin-left: 20px;
     border: none;
     border-radius: 4px;
