@@ -1,10 +1,12 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from main_forms import views
 
 
 urlpatterns = [
+    path("users/", include("account_manager.urls", namespace="users")),
+    
     path("", views.create_contract, name="main"),
     path("forms/contracts", views.create_contract, name="create_contract"),
     path("forms/orders", views.create_order, name="create_order"),

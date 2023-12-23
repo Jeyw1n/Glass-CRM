@@ -25,8 +25,7 @@ SECRET_KEY = "django-insecure-n)(2x!tum8i!#sz*!5%35dnrmlgp&(ql*68i^5@nk9n+_%5y1f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://ivanjei1.beget.tech',
-                 '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['http://ivanjei1.beget.tech', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -38,7 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "main_forms"
+    "main_forms.apps.MainFormsConfig",
+    "account_manager",
+    # Еще приложение с таблицами.
 ]
 
 MIDDLEWARE = [
