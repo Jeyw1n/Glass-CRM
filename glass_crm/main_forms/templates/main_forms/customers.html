@@ -31,6 +31,6 @@
 <form action="{% url 'create_customer' %}" method="post">
   {% csrf_token %}
   {{ form.as_div }}
-  <button class="sumbit_button" type="submit" name="submit">Отправить</button>
+  <button class="sumbitButton" type="submit" name="submit">Отправить</button>
 </form>
 {% endblock %}

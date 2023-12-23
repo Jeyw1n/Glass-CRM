@@ -13,7 +13,7 @@ form {
     margin-top: auto;
 }
 
-.sumbit_button {
+.sumbitButton {
     border-radius: 5px;
     background-color: #025F6F;
     border: none;
@@ -23,7 +23,7 @@ form {
     font-size: 18px;
 }
 
-.form {
+.formBlock {
     display: flex;
     flex-direction: column;
     height: 100%;

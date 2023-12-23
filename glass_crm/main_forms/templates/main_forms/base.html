@@ -53,11 +53,15 @@
                 <input type="text" id="searchInput" placeholder="Поиск" style="margin-left: 20px;">
                 <!-- <button class="search_button">Найти</button> -->
             </div>
-            <!-- /.table -->
+            <!-- /.topBar -->
+            
+            <!-- Название формы. -->
+            <h2 style="margin-left: 41px; margin-bottom: 0px;">{{ page_label }}</h2>
 
+            
             <link rel="stylesheet" href="{% static 'main_forms/css/table.css'%}" type="text/css">
             <link rel="stylesheet" href="{% static 'main_forms/css/forms.css'%}" type="text/css">
-            <div class="form">
+            <div class="formBlock">
                 {% block form_block %}
                 {% endblock %}
             </div>
