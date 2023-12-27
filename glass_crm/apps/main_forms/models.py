@@ -12,7 +12,7 @@ class Customers(models.Model):
 
     objects = models.Manager()
 
-    # Возврат имени, чтобы отображать его в выпадающем списке формы.
+    # Возврат имени, чтобы отображать его в выпадающем списке формы, например.
     def __str__(self):
         return self.customer_name
 
@@ -28,8 +28,6 @@ class Contracts(models.Model):
     price = models.FloatField(verbose_name='Цена')                                          # Цена.
     prepayment = models.FloatField(verbose_name='Предоплата')                               # Предоплата.
     debt = models.FloatField(verbose_name='Долг')                                           # Долг.
-    # delivery_date = models.DateField(verbose_name='Дата доставки')                        # Дата доставки.
-    # montage_date = models.DateField(verbose_name='Дата монтажа')                          # Дата монтажа.
     delivery_date_by_contract = models.DateField(verbose_name='Дата доставки по договору')  # Дата доставки по договору.
 
     objects = models.Manager()
@@ -49,7 +47,7 @@ class Orders(models.Model):
     price = models.FloatField(verbose_name='Стоимость')                                     # Стоимость.
     payment = models.FloatField(verbose_name='Оплата')                                      # Оплата.
     delivery_date = models.DateField(verbose_name='Дата доставки от завода')                # Дата доставки от завода.
-    square_meters = models.CharField(max_length=255, verbose_name='Квадратные мерты')                     # м2.
+    square_meters = models.CharField(max_length=255, verbose_name='Квадратные мерты')       # м2.
     slopes = models.CharField(max_length=255, verbose_name='Откосы')                        # Откосы.
 
     objects = models.Manager()
@@ -61,8 +59,7 @@ class Installations(models.Model):
     contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)  # Ссылка на модель договоров.
 
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
-    # square_meters = models.FloatField(max_length=255, verbose_name='Кол-во м2')             # Кол-во м2.
-    square_meters_price = models.FloatField(verbose_name='Стоимость квадратных метров')                    # Стоимость м2.
+    square_meters_price = models.FloatField(verbose_name='Стоимость квадратных метров')     # Стоимость м2.
     linear_meters = models.FloatField(max_length=255, verbose_name='Кол-во м/п')            # Кол-во м/п.
     linear_meters_price = models.FloatField(verbose_name='Стоимость м/п')                   # Стоимость м/п.
     additional_works = models.FloatField(verbose_name='Доп. работы')                        # Доп. работы.

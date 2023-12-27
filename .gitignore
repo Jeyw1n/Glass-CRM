@@ -5,3 +5,5 @@
 /.htaccess
 /passenger_wsgi.py
 /.vscode
+passwords
+.directory

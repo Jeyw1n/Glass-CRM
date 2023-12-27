@@ -1,11 +1,15 @@
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
 
-from main_forms import views
+from apps.main_forms import views
 
 
 urlpatterns = [
-    path("users/", include("account_manager.urls", namespace="users")),
+    path("admin/", admin.site.urls),
+    
+    path("users/", include("apps.account_manager.urls", namespace="users")),
     
     path("", views.create_contract, name="main"),
     path("forms/contracts", views.create_contract, name="create_contract"),
@@ -13,4 +17,4 @@ urlpatterns = [
     path("forms/customers", views.create_customer, name="create_customer"),
     path("forms/metrics", views.create_metrics, name="create_metrics"),
     path("forms/installations", views.create_installation, name="create_installation"),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

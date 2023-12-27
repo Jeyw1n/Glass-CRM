@@ -1,5 +1,5 @@
 from django import forms
-from main_forms.models import Customers, Contracts, Orders, Metrics, Installations, Factories
+from apps.main_forms.models import Customers, Contracts, Orders, Metrics, Installations, Factories
 from django.utils.translation import gettext_lazy as _
 
 
@@ -15,8 +15,7 @@ class ContractsForm(forms.ModelForm):
     class Meta:
         model = Contracts
         customer = forms.ModelChoiceField(queryset=Customers.objects.all())
-        fields = ['contract_number', 'address', 'customer', 'price',
-                  'prepayment', 'delivery_date_by_contract']
+        fields = ['contract_number', 'address', 'customer', 'price', 'prepayment', 'delivery_date_by_contract']
         # Исключаем поля 'debt', 'delivery_date' и 'montage_date' из формы.
         exclude = ['debt', 'delivery_date', 'montage_date']
         labels = {
@@ -48,7 +47,9 @@ class OrdersForm(forms.ModelForm):
         contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
 
         fields = ['contract', 'factory', 'order_number', 'price', 'payment', 'delivery_date', 'square_meters', 'slopes']
-        widgets = {'delivery_date': forms.DateInput(attrs={'type': 'date'})}
+        widgets = {
+            'delivery_date': forms.DateInput(attrs={'type': 'date'})
+        }
         labels = {
             "contract": _("Договор"),
             "factory": _("Завод"),
@@ -60,7 +61,9 @@ class MetricsForm(forms.ModelForm):
     class Meta:
         model = Metrics
         fields = ['address', 'metrics_date', 'contacts', 'comments']
-        widgets = {'metrics_date': forms.DateInput(attrs={'type': 'date'})}
+        widgets = {
+            'metrics_date': forms.DateInput(attrs={'type': 'date'})
+        }
 
 
 # Монтажи
@@ -68,14 +71,15 @@ class InstallationsForm(forms.ModelForm):
     class Meta:
         model = Installations
         contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
-        fields = ['contract', 'installation_date', 'square_meters_price',
-                  'linear_meters', 'linear_meters_price', 'additional_works']
+        fields = ['contract', 'installation_date', 'square_meters_price', 'linear_meters', 'linear_meters_price', 'additional_works']
         exclude = ['total_amount']
 
         labels = {
             "contract": _("Договор"),
         }
-        widgets = {'installation_date': forms.DateInput(attrs={'type': 'date'})}
+        widgets = {
+            'installation_date': forms.DateInput(attrs={'type': 'date'})
+        }
 
     def save(self, commit=True):
         instance = super().save(commit=False)  # Вытаскиваем экземпляр без сохранения в БД.
@@ -83,9 +87,7 @@ class InstallationsForm(forms.ModelForm):
         # Достаем привязанный договор.
         square_meters = Orders.objects.filter(contract=instance.contract).values("square_meters")[0]['square_meters']
 
-        instance.total_amount = (float(square_meters) * instance.square_meters_price +
-                                 instance.linear_meters * instance.linear_meters_price +
-                                 instance.additional_works)
+        instance.total_amount = (float(square_meters) * instance.square_meters_price + instance.linear_meters * instance.linear_meters_price + instance.additional_works)
         if commit:
             instance.save()
         return instance

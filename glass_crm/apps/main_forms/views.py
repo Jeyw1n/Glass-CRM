@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count, Sum, Max, OuterRef, Subquery
 
-from main_forms.forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm, InstallationsForm
-from main_forms.models import Customers, Contracts, Orders, Metrics, Installations
+from apps.main_forms.forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm, InstallationsForm
+from apps.main_forms.models import Customers, Contracts, Orders, Metrics, Installations
 
 # Список форм:
 # contracts, orders, clients, installations, metrics.
@@ -23,7 +23,13 @@ def create_entity(request, table_data, form_class, template_name, this_page):
     else:
         form = form_class
 
-    context = {'table_data': table_data, "form": form, "this_page": this_page[0], "page_label": this_page[1]}
+    context = {
+        'table_data': table_data,
+        "form": form,
+        "this_page": this_page[0],
+        "page_label": this_page[1]
+    }
+    
     return render(request, template_name, context=context)
 
 
@@ -39,7 +45,7 @@ def create_contract(request):
     subquery = Installations.objects.filter(contract=OuterRef('contract_number')).order_by('installation_date').values(
         'installation_date')[:1]
     table_data = Contracts.objects.annotate(installation_date=Subquery(subquery))
-    return create_entity(request, table_data, ContractsForm, "main_forms/contracts.html", ("contracts", "Договора"))
+    return create_entity(request, table_data, ContractsForm, "main_forms/contracts.html", ("contracts", "Договоры"))
 
 
 def create_order(request):
