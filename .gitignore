@@ -5,3 +5,4 @@ passwords
 /.idea
 /.vscode
 /glass_crm/__pycache__
+.gitignore
