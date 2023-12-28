@@ -6,4 +6,5 @@
 /passenger_wsgi.py
 /.vscode
 passwords
-.directory
+/.directory
+glass_crm/static/

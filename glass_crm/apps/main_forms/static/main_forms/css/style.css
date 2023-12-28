@@ -1,0 +1,126 @@
+* {font-family: 'Roboto', sans-serif;}
+body {margin: 0;}
+
+main{
+    display: flex;
+}
+
+.menu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    background-color: #fff;
+    z-index: 2;
+    height: 100%;
+
+    position: fixed;
+
+    left: -100%;
+    transition: left 0.1s ease-out;
+}
+.show {left: 0;}
+
+
+.menu div {
+    padding: 4px 10px;
+    width: 132px;
+    /* background-color: #f2f2f2; */
+}
+
+.menu div a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+
+
+.menu a:hover {
+    background-color: #85BBBB;
+    box-shadow: 5px 5px 10px #00000012;
+    color: white;
+}
+
+.material-icons {
+    /* color: #6c6c6c; */
+    margin-right: 8px;
+    vertical-align: bottom;
+}
+
+.search-button {
+    border-radius: 4px;
+    background-color: #004551;
+    border: none;
+    color: white;
+    padding: 2px 13px;
+    text-align: center;
+    font-size: 15px;
+}
+
+
+.inv-block {
+    width: 100%;
+    height: 100%;
+    background-color: #0000006b;
+    position: fixed;
+    z-index: 1;
+    display: none;
+    backdrop-filter: blur(2px);
+}
+
+
+#open-menu {
+    z-index: 1;
+    background: #7e7e7e82;;
+    height: 100%;
+    position: absolute;
+    width: 4px;
+    position: fixed;
+}
+
+
+.highlight {
+    background-color: yellow;
+}
+
+
+/* 
+    Menu button style.
+*/
+
+.open-menu-button {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #ffffff;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+
+/* 
+    Top bar.
+*/
+
+.top-bar{
+    background-color: #85bbbb;
+    box-shadow: -3px 3px 15px #0003;
+    display: flex;
+    align-items: center;
+}
+
+/* Search input field. */
+#search-input {
+    margin-left: 20px;
+    border: none;
+    border-radius: 4px;
+    height: 24px;
+    width: 256px;
+}
