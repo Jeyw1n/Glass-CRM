@@ -18,20 +18,18 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
+
     <style>
         #{{ this_page }} > a {
-          background-color: #85BBBB;
-          box-shadow: 5px 5px 10px #00000012;
-          color: white;
+            background-color: #85BBBB;
+            box-shadow: 5px 5px 10px #00000012;
+            color: white;
         }
     </style>
-
-    <!-- <div id="open-menu"></div> -->
     <div class="inv-block tohideandshow"></div>
 
-    <div id="main-block">
-
-        <div class="menu">
+    <nav>
+        <div class='menu'>
             <div id="contracts"><a href="/forms/contracts"><i class="material-icons md-18">sticky_note_2</i>Договоры</a></div>
             <div id="orders"><a href="/forms/orders"><i class="material-icons md-18">shopping_cart</i>Заказы</a></div>
             <div id="customers"><a href="/forms/customers"><i class="material-icons md-18">group</i>Клиенты</a></div>
@@ -39,43 +37,35 @@
             <div id="metrics"><a href="/forms/metrics"><i class="material-icons md-18">square_foot</i>Замеры</a></div>
         </div>
         <!-- /.menu -->
+    </nav>
 
-        <div id="form-n-table">
-            
-            <div class="top-bar">
-                <!-- <button>добавить запись</button> -->
-                
-                <div class="open-menu-button" onclick="openMenu(this)">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
-                </div>
-
-                <input type="text" id="search-input" placeholder="Поиск" style="margin-left: 20px;">
-
+    <header>
+        <div class="top-bar">
+            <div class="open-menu-button" onclick="openMenu(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
             </div>
-            <!-- /.topBar -->
-            
+            <input type="text" id="search-input" placeholder="Поиск" style="margin-left: 20px;">
+        </div>
+        <!-- /.topBar -->
+    </header>
+
+    <main>
+        <div id="form-n-table">
             <!-- Название формы. -->
             <h2 style="margin-left: 41px; margin-bottom: 0px;">{{ page_label }}</h2>
-
-            
+            <!-- Стили. -->
             <link rel="stylesheet" href="{% static 'main_forms/css/table.css'%}" type="text/css">
             <link rel="stylesheet" href="{% static 'main_forms/css/forms.css'%}" type="text/css">
             <div class="form-block">
                 {% block form_block %}
                 {% endblock %}
             </div>
-            <!-- /.form -->
-
-
-            <p>{{ page_name }}</p>
-
+            <!-- /.form-block -->
         </div>
         <!-- /#form-n-table -->
-
-    </div>
-    <!-- /.main_block -->
+    </main>
 
     <script src="{% static 'main_forms/scripts/resizer.js'%}"></script>
     <script src="{% static 'main_forms/scripts/search.js'%}"></script>
