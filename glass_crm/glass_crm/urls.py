@@ -9,6 +9,7 @@ from apps.main_forms import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     
+    # Маршруты приложения "Account manager".
     path("users/", include("apps.account_manager.urls", namespace="users")),
     
     path("", views.create_contract, name="main"),
@@ -17,4 +18,4 @@ urlpatterns = [
     path("forms/customers", views.create_customer, name="create_customer"),
     path("forms/metrics", views.create_metrics, name="create_metrics"),
     path("forms/installations", views.create_installation, name="create_installation"),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
