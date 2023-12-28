@@ -1,0 +1,7 @@
+.htaccess
+passenger_wsgi.py
+passwords
+/glass_crm/static
+/.idea
+/.vscode
+/glass_crm/__pycache__
