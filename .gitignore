@@ -2,6 +2,5 @@
 /glass_crm/static
 /.idea
 /.vscode
-/glass_crm/__pycache__
 /venv
 .gitignore
