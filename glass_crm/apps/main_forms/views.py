@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count, Sum, Max, OuterRef, Subquery
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 from apps.main_forms.forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm, InstallationsForm
 from apps.main_forms.models import Customers, Contracts, Orders, Metrics, Installations
@@ -9,7 +11,14 @@ from apps.main_forms.models import Customers, Contracts, Orders, Metrics, Instal
 
 
 # Шаблон страницы с формой.
+
+@login_required(login_url='/users/login/')
 def create_entity(request, table_data, form_class, template_name, this_page):
+    
+    register_url = reverse('users:register')
+    login_url = reverse('users:login')
+    logout_url = reverse('users:logout')
+    
     # Если это POST запрос.
     if request.method == 'POST':
         form = form_class(request.POST)
@@ -27,7 +36,11 @@ def create_entity(request, table_data, form_class, template_name, this_page):
         'table_data': table_data,
         "form": form,
         "this_page": this_page[0],
-        "page_label": this_page[1]
+        "page_label": this_page[1],
+        
+        'register_url': register_url,
+        'login_url': login_url,
+        'logout_url': logout_url,
     }
     
     return render(request, template_name, context=context)

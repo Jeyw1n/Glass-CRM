@@ -47,6 +47,16 @@
                 <div class="bar3"></div>
             </div>
             <input type="text" id="search-input" placeholder="Поиск" style="margin-left: 20px;">
+
+            <div class="accman-btn">
+                {% if user.is_authenticated %}
+                    <button class="sumbit-button"><a href={{ logout_url }} class="accman-link">Выход</a></button>
+                {% else %}
+                    <button class="sumbit-button"><a href={{ login_url }} class="accman-link">Войти</a></button>
+                    <button class="sumbit-button"><a href={{ register_url }} class="accman-link">Регистрация</a></button>
+                {% endif %}
+                
+            </div>
         </div>
         <!-- /.topBar -->
     </header>
@@ -58,10 +68,12 @@
             <!-- Стили. -->
             <link rel="stylesheet" href="{% static 'main_forms/css/table.css'%}" type="text/css">
             <link rel="stylesheet" href="{% static 'main_forms/css/forms.css'%}" type="text/css">
+            
             <div class="form-block">
                 {% block form_block %}
                 {% endblock %}
             </div>
+            
             <!-- /.form-block -->
         </div>
         <!-- /#form-n-table -->

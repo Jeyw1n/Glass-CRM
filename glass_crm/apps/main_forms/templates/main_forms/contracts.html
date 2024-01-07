@@ -36,9 +36,11 @@
 </div>
 <div class="resize-handle"></div>
 
+{% if user.is_superuser %}
 <form action="{% url 'create_contract' %}" method="post">
   {% csrf_token %}
   {{ form.as_div }}
   <button class="sumbit-button" type="submit" name="submit">Отправить</button>
 </form>
+{% endif %}
 {% endblock %}
