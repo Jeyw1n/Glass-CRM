@@ -1,5 +1,7 @@
+<h1>Логин</h1>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <p><button type="sumbit">Войти</button></p>
+    <a href="/users/register/">У меня еще нет аккаунта</a>
 </form>

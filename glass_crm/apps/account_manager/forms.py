@@ -11,7 +11,7 @@ class LoginUserForm(forms.Form):
         fields = ['username', 'password']
         
         
-class RegisterUserForm(forms.Form):
+class RegisterUserForm(forms.ModelForm):
     username = forms.CharField(label="Логин",)    
     password = forms.CharField(label="Пароль", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Подтвердите пароль", widget=forms.PasswordInput())
@@ -22,6 +22,6 @@ class RegisterUserForm(forms.Form):
     
     def clean_password2(self):
         cd = self.cleaned_data
-        if cd['password'] != ['password2']:
+        if cd['password'] != cd['password2']:
             raise forms.ValidationError("Пароли не совпадают!")
         return cd['password']
