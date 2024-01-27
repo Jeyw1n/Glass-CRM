@@ -1,7 +1,7 @@
 * {font-family: 'Roboto', sans-serif;}
 body {margin: 0;}
 
-#main-block{
+main{
     display: flex;
 }
 
@@ -123,4 +123,26 @@ body {margin: 0;}
     border-radius: 4px;
     height: 24px;
     width: 256px;
+}
+
+
+/*
+    Account Manager buttons
+*/
+.accman-link {
+    text-decoration: none;
+    color: white;
+}
+.accman-btn {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    margin-right: 10px;
+}
+.accman-btn button {
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #0a7087;
+    padding: 5px 16px;
+    text-align: center;
 }

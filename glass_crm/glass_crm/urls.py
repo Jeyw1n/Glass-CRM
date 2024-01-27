@@ -18,4 +18,5 @@ urlpatterns = [
     path("forms/customers", views.create_customer, name="create_customer"),
     path("forms/metrics", views.create_metrics, name="create_metrics"),
     path("forms/installations", views.create_installation, name="create_installation"),
+    path("forms/final_table", views.final_table, name="final_table"),
 ]

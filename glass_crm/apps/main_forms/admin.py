@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.main_forms.models import Customers, Contracts, Orders, Metrics, Installations, Factories
+from .models import Customers, Contracts, Orders, Metrics, Installations, Factories
 
 admin.site.register(Customers)
 admin.site.register(Contracts)

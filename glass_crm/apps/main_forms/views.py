@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.db.models import Count, Sum, Max, OuterRef, Subquery
+from django.db.models import Count, Sum, Max, OuterRef, Subquery, Prefetch
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-from apps.main_forms.forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm, InstallationsForm
-from apps.main_forms.models import Customers, Contracts, Orders, Metrics, Installations
+from .forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm, InstallationsForm
+from .models import Customers, Contracts, Orders, Metrics, Installations
 
 # Список форм:
 # contracts, orders, clients, installations, metrics.
@@ -77,3 +77,32 @@ def create_installation(request):
     table_data = Installations.objects.annotate(square_meters=Subquery(subquery))
 
     return create_entity(request, table_data, InstallationsForm, "main_forms/installations.html", ("installations", "Монтажи"))
+
+
+# Cводная таблица
+@login_required(login_url='/users/login/')
+def final_table(request):
+    contracts = Contracts.objects.all()
+
+    table_data = []
+    for contract in contracts:
+        order = Orders.objects.filter(contract=contract).first()
+        installation = Installations.objects.filter(contract=contract).first()
+
+        data = {
+            'Номер_договора': contract.contract_number,
+            'Стоимость_договора': contract.price,
+            'Оплачено': order.payment,
+            'Долг': contract.debt,
+            'Завод': order.factory,
+            'ФИО_клиента': contract.customer.customer_name,
+            'Телефон': contract.customer.phone,
+            'Дата_доставки_по_договору': contract.delivery_date_by_contract,
+            'Доставка_завода': order.delivery_date,
+            'Дата_монтажа': installation.installation_date if installation else None,
+            'Стоимость_монтажа': installation.total_amount if installation else None,
+        }
+
+        table_data.append(data)
+
+    return render(request, 'main_forms/final_table.html', {'data': table_data})

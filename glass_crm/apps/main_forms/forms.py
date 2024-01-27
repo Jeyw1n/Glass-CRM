@@ -1,5 +1,5 @@
 from django import forms
-from apps.main_forms.models import Customers, Contracts, Orders, Metrics, Installations, Factories
+from .models import Customers, Contracts, Orders, Metrics, Installations, Factories
 from django.utils.translation import gettext_lazy as _
 
 
