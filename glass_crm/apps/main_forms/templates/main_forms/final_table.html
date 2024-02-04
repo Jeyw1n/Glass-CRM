@@ -1,34 +1,39 @@
-<table>
-  <thead>
-    <tr>
-      <th>Номер договора</th>
-      <th>Стоимость договора</th>
-      <th>Оплачено</th>
-      <th>Долг</th>
-      <th>Завод</th>
-      <th>ФИО клиента</th>
-      <th>Телефон</th>
-      <th>Дата доставки по договору</th>
-      <th>Доставка завода</th>
-      <th>Дата монтажа</th>
-      <th>Стоимость монтажа</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in data %}
+{% extends "main_forms/base.html" %}
+
+{% block form_block %}
+<div class="table-container">
+  <table>
+    <thead>
       <tr>
-        <td>{{ row.Номер_договора }}</td>
-        <td>{{ row.Стоимость_договора }}</td>
-        <td>{{ row.Оплачено }}</td>
-        <td>{{ row.Долг }}</td>
-        <td>{{ row.Завод }}</td>
-        <td>{{ row.ФИО_клиента }}</td>
-        <td>{{ row.Телефон }}</td>
-        <td>{{ row.Дата_доставки_по_договору }}</td>
-        <td>{{ row.Доставка_завода }}</td>
-        <td>{{ row.Дата_монтажа }}</td>
-        <td>{{ row.Стоимость_монтажа }}</td>
+        <th>Номер договора</th>
+        <th>Стоимость договора</th>
+        <th>Оплачено</th>
+        <th>Долг</th>
+        <th>Завод</th>
+        <th>Замерщик</th>
+        <th>ФИО клиента</th>
+        <th>Телефон</th>
+        <th>Дата доставки по договору</th>
+        <th>Дата доставки заказа</th>
       </tr>
+    </thead>
+    <tbody>
+    {% for data in table_data %}
+        <tr>
+          <td>{{ data.contract_number }}</td>
+          <td>{{ data.price }}</td>
+          <td>{{ data.prepayment }}</td>
+          <td>{{ data.debt }}</td>
+          <td>{{ data.factory }}</td>
+          <td>{{ data.address }}</td>
+          <td>{{ data.customer_name }}</td>
+          <td>{{ data.phone }}</td>
+          <td>{{ data.delivery_date_by_contract }}</td>
+          <td>{{ data.delivery_date }}</td>
+        </tr>
     {% endfor %}
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+<div class="resize-handle"></div>
+{% endblock %}

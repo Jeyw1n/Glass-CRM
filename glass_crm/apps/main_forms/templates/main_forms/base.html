@@ -51,7 +51,7 @@
 
             <div class="accman-btn">
                 {% if user.is_authenticated %}
-                    <button class="sumbit-button"><a href={{ logout_url }} class="accman-link">Выход</a></button>
+                    <button class="sumbit-button"><a href={{ logout_url }} class="accman-link" style="text-decoration: none;color: white;">Выход</a></button>
                 {% else %}
                     <button class="sumbit-button"><a href={{ login_url }} class="accman-link">Войти</a></button>
                     <button class="sumbit-button"><a href={{ register_url }} class="accman-link">Регистрация</a></button>

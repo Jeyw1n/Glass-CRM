@@ -40,7 +40,7 @@ class Orders(models.Model):
     """ Заказы """
 
     # Ссылка на модель договоров.
-    contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)
+    contract = models.OneToOneField(Contracts, on_delete=models.CASCADE, related_name='order')
 
     factory = models.CharField(max_length=255, verbose_name='Завод')                        # Завод.
     order_number = models.CharField(max_length=255, verbose_name='Номер заказа')            # Номер заказа.
@@ -56,7 +56,8 @@ class Orders(models.Model):
 class Installations(models.Model):
     """ Монтажи """
 
-    contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)  # Ссылка на модель договоров.
+    # Ссылка на модель договоров.
+    contract = models.OneToOneField(Contracts, on_delete=models.CASCADE, related_name='installation')
 
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
     square_meters_price = models.FloatField(verbose_name='Стоимость квадратных метров')     # Стоимость м2.

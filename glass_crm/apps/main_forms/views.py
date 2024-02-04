@@ -83,26 +83,41 @@ def create_installation(request):
 @login_required(login_url='/users/login/')
 def final_table(request):
     contracts = Contracts.objects.all()
+    table_data: list = []
 
-    table_data = []
-    for contract in contracts:
-        order = Orders.objects.filter(contract=contract).first()
-        installation = Installations.objects.filter(contract=contract).first()
+    for c in contracts:
 
-        data = {
-            'Номер_договора': contract.contract_number,
-            'Стоимость_договора': contract.price,
-            'Оплачено': order.payment,
-            'Долг': contract.debt,
-            'Завод': order.factory,
-            'ФИО_клиента': contract.customer.customer_name,
-            'Телефон': contract.customer.phone,
-            'Дата_доставки_по_договору': contract.delivery_date_by_contract,
-            'Доставка_завода': order.delivery_date,
-            'Дата_монтажа': installation.installation_date if installation else None,
-            'Стоимость_монтажа': installation.total_amount if installation else None,
+        order = Orders.objects.filter(contract=c.id).first()
+        ini = Installations.objects.filter(contract=c.id).first()
+
+        data: dict = {
+            "contract_number": c.contract_number,                       # Номер договора
+            "price": c.price,                                           # Стоимость договора
+            "prepayment": c.prepayment,                                 # Оплачено
+            "debt": c.debt,                                             # Долг
+            "factory":  order.factory if order else None,               # Завод
+            # Замерщик
+            "address": c.address,                                       # адрес объекта
+            "customer_name": c.customer.customer_name,                  # Фио клиента
+            "phone": c.customer.phone,                                  # Телефон
+            "delivery_date_by_contract": c.delivery_date_by_contract,   # Дата
+            "delivery_date": order.delivery_date if order else None,    # Доставка завода
+            "ini_date": ini.installation_date if ini else None,         # Дата монтажа
+            # Бригада
+            "total_amount": ini.total_amount if ini else None           # Стоимость монтажа
+            # Заводской номер заказа
+            # Стоимость от завода
+            # ЗП замерщика
+            # Себестоимость
+            # Прибыль
+            # %
         }
 
         table_data.append(data)
 
-    return render(request, 'main_forms/final_table.html', {'data': table_data})
+    print(table_data)
+    context: dict = {
+        'table_data': table_data,
+        'this_page': 'final_table'
+    }
+    return render(request, 'main_forms/final_table.html', context=context)
