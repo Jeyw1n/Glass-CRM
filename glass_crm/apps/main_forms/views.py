@@ -89,6 +89,7 @@ def final_table(request):
 
         order = Orders.objects.filter(contract=c.id).first()
         ini = Installations.objects.filter(contract=c.id).first()
+        # metric = Metrics.objects.filter(contract=c.id).first()
 
         data: dict = {
             "contract_number": c.contract_number,                       # Номер договора

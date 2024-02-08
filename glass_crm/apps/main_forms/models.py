@@ -74,6 +74,7 @@ class Metrics(models.Model):
 
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
     metrics_date = models.DateField(verbose_name='Дата замера')                             # Дата замера.
+    measurer = models.CharField(max_length=255, verbose_name='Замерщик')                    # Замерщик
     contacts = models.CharField(max_length=255, verbose_name='Контакты')                    # Контакты.
     comments = models.TextField(verbose_name='Комментарии')                                 # Комментарии.
 
@@ -88,3 +89,13 @@ class Factories(models.Model):
 
     def __str__(self):
         return self.factory
+
+
+class Measurers(models.Model):
+    """ Список замерщиков """
+
+    measurer = models.CharField(max_length=255)
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.measurer

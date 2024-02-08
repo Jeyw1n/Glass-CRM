@@ -1,5 +1,5 @@
 from django import forms
-from .models import Customers, Contracts, Orders, Metrics, Installations, Factories
+from .models import Customers, Contracts, Orders, Metrics, Installations, Factories, Measurers
 from django.utils.translation import gettext_lazy as _
 
 
@@ -56,11 +56,16 @@ class OrdersForm(forms.ModelForm):
 
 # Замеры
 class MetricsForm(forms.ModelForm):
+    measurer = forms.ModelChoiceField(queryset=Measurers.objects.all())
+
     class Meta:
         model = Metrics
-        fields = ['address', 'metrics_date', 'contacts', 'comments']
+        fields = ['address', 'metrics_date', 'measurer', 'contacts', 'comments']
         widgets = {
             'metrics_date': forms.DateInput(attrs={'type': 'date'})
+        }
+        labels = {
+            "measurer": _("Замерщик"),
         }
 
 
