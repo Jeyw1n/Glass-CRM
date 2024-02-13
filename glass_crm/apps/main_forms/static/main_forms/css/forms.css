@@ -15,12 +15,12 @@ form {
 
 .sumbit-button {
     border-radius: 5px;
-    background-color: #025F6F;
     border: none;
     color: white;
     padding: 6px 18px;
     text-align: center;
     font-size: 18px;
+    box-shadow: 0 0 8px 4px #0000002e;
 }
 
 .form-block {

@@ -30,7 +30,8 @@
 <form action="{% url 'create_metrics' %}" method="post">
   {% csrf_token %}
   {{ form.as_div }}
-  <button class="sumbit-button" type="submit" name="submit">Отправить</button>
+  <br>
+  <button class="sumbit-button col-dark-1" type="submit" name="submit">Отправить</button>
 </form>
 {% endif %}
 {% endblock %}
