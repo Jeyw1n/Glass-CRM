@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "apps.main_forms.apps.MainFormsConfig",
     "apps.account_manager",
     "apps.employees",
+    "apps.pivot_table",
 ]
 
 MIDDLEWARE = [

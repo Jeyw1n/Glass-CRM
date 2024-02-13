@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from apps.main_forms import views
-
+from apps.pivot_table.views import pivot_table_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -18,5 +18,5 @@ urlpatterns = [
     path("forms/customers", views.create_customer, name="create_customer"),
     path("forms/metrics", views.create_metrics, name="create_metrics"),
     path("forms/installations", views.create_installation, name="create_installation"),
-    path("forms/final_table", views.final_table, name="final_table"),
+    path("forms/pivot_table", pivot_table_view, name="pivot_table"),
 ]
