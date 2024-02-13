@@ -1,6 +1,6 @@
 * {font-family: 'Roboto', sans-serif;}
 body {margin: 0;}
-
+hr {border-color: gainsboro;border: solid 1px #eaeaea;}
 main{
     display: flex;
 }
@@ -18,13 +18,15 @@ main{
 
     left: -100%;
     transition: left 0.1s ease-out;
+
+    box-shadow: 0px 0px 20px 7px #00000070;
 }
 .show {left: 0;}
 
 
 .menu div {
     padding: 4px 10px;
-    width: 182px;
+    width: 256px;
     /* background-color: #f2f2f2; */
 }
 
@@ -93,7 +95,7 @@ main{
 .open-menu-button {
     display: inline-block;
     cursor: pointer;
-    margin-left: 8px;
+    margin-left: 14px;
 }
 
 .bar1, .bar2, .bar3 {
@@ -114,6 +116,7 @@ main{
     box-shadow: -3px 3px 15px #0003;
     display: flex;
     align-items: center;
+    height: 56px;
 }
 
 /* Search input field. */
@@ -121,7 +124,7 @@ main{
     margin-left: 20px;
     border: none;
     border-radius: 4px;
-    height: 24px;
+    height: 29px;
     width: 256px;
 }
 
@@ -141,8 +144,7 @@ main{
 }
 .accman-btn button {
     font-size: 16px;
-    border-radius: 5px;
     background-color: #0a7087;
-    padding: 5px 16px;
+    padding: 8px 16px;
     text-align: center;
 }
