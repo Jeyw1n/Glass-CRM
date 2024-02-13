@@ -1,5 +1,6 @@
 from django import forms
-from .models import Customers, Contracts, Orders, Metrics, Installations, Factories, Measurers
+from .models import Customers, Contracts, Orders, Metrics, Installations, Factories
+from ..employees.models import Measurers
 from django.utils.translation import gettext_lazy as _
 
 
@@ -12,16 +13,18 @@ class CustomersForm(forms.ModelForm):
 
 # Договора
 class ContractsForm(forms.ModelForm):
+    measurer = forms.ModelChoiceField(queryset=Measurers.objects.all())
+
     class Meta:
         model = Contracts
         customer = forms.ModelChoiceField(queryset=Customers.objects.all())
-        fields = ['contract_number', 'address', 'customer', 'price', 'prepayment', 'delivery_date_by_contract']
+        fields = ['contract_number', 'address', 'customer', 'price', 'prepayment', 'delivery_date_by_contract', 'measurer']
         # Исключаем поля 'debt', 'delivery_date' и 'montage_date' из формы.
         exclude = ['debt', 'delivery_date', 'montage_date']
         labels = {
             "customer": _("Клиент"),
+            "measurer": _("Замерщик"),
         }
-
         widgets = {
             'delivery_date_by_contract': forms.DateInput(attrs={'type': 'date'}),
         }
@@ -56,16 +59,12 @@ class OrdersForm(forms.ModelForm):
 
 # Замеры
 class MetricsForm(forms.ModelForm):
-    measurer = forms.ModelChoiceField(queryset=Measurers.objects.all())
 
     class Meta:
         model = Metrics
-        fields = ['address', 'metrics_date', 'measurer', 'contacts', 'comments']
+        fields = ['address', 'metrics_date', 'contacts', 'comments']
         widgets = {
             'metrics_date': forms.DateInput(attrs={'type': 'date'})
-        }
-        labels = {
-            "measurer": _("Замерщик"),
         }
 
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.main_forms.apps.MainFormsConfig",
     "apps.account_manager",
+    "apps.employees",
 ]
 
 MIDDLEWARE = [
