@@ -29,6 +29,7 @@ class Contracts(models.Model):
     prepayment = models.FloatField(verbose_name='Предоплата')                               # Предоплата.
     debt = models.FloatField(verbose_name='Долг')                                           # Долг.
     delivery_date_by_contract = models.DateField(verbose_name='Дата доставки по договору')  # Дата доставки по договору.
+    measurer = models.CharField(max_length=255, verbose_name='Замерщик')                    # Замерщик
 
     objects = models.Manager()
 
@@ -44,7 +45,7 @@ class Orders(models.Model):
 
     factory = models.CharField(max_length=255, verbose_name='Завод')                        # Завод.
     order_number = models.CharField(max_length=255, verbose_name='Номер заказа')            # Номер заказа.
-    price = models.FloatField(verbose_name='Стоимость')                                     # Стоимость.
+    price = models.FloatField(verbose_name='Стоимость заказа')                              # Стоимость заказа.
     payment = models.FloatField(verbose_name='Оплата')                                      # Оплата.
     delivery_date = models.DateField(verbose_name='Дата доставки от завода')                # Дата доставки от завода.
     square_meters = models.CharField(max_length=255, verbose_name='Квадратные мерты')       # м2.
@@ -74,7 +75,6 @@ class Metrics(models.Model):
 
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
     metrics_date = models.DateField(verbose_name='Дата замера')                             # Дата замера.
-    measurer = models.CharField(max_length=255, verbose_name='Замерщик')                    # Замерщик
     contacts = models.CharField(max_length=255, verbose_name='Контакты')                    # Контакты.
     comments = models.TextField(verbose_name='Комментарии')                                 # Комментарии.
 
@@ -89,13 +89,3 @@ class Factories(models.Model):
 
     def __str__(self):
         return self.factory
-
-
-class Measurers(models.Model):
-    """ Список замерщиков """
-
-    measurer = models.CharField(max_length=255)
-    objects = models.Manager()
-
-    def __str__(self):
-        return self.measurer

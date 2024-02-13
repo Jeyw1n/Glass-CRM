@@ -12,7 +12,7 @@ from .models import Customers, Contracts, Orders, Metrics, Installations
 
 # Шаблон страницы с формой.
 
-@login_required(login_url='/users/login/')
+# @login_required(login_url='/users/login/')
 def create_entity(request, table_data, form_class, template_name, this_page):
     
     register_url = reverse('users:register')
@@ -80,7 +80,7 @@ def create_installation(request):
 
 
 # Cводная таблица
-@login_required(login_url='/users/login/')
+# @login_required(login_url='/users/login/')
 def final_table(request):
     contracts = Contracts.objects.all()
     table_data: list = []
@@ -97,7 +97,7 @@ def final_table(request):
             "prepayment": c.prepayment,                                 # Оплачено
             "debt": c.debt,                                             # Долг
             "factory":  order.factory if order else None,               # Завод
-            # Замерщик
+            "measurer": c.measurer,                                     # Замерщик
             "address": c.address,                                       # адрес объекта
             "customer_name": c.customer.customer_name,                  # Фио клиента
             "phone": c.customer.phone,                                  # Телефон
