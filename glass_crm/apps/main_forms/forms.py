@@ -1,6 +1,6 @@
 from django import forms
 from .models import Customers, Contracts, Orders, Metrics, Installations, Factories
-from ..employees.models import Measurers
+from ..employees.models import Measurers, Installers
 from django.utils.translation import gettext_lazy as _
 
 
@@ -13,17 +13,14 @@ class CustomersForm(forms.ModelForm):
 
 # Договора
 class ContractsForm(forms.ModelForm):
-    measurer = forms.ModelChoiceField(queryset=Measurers.objects.all())
-
     class Meta:
         model = Contracts
         customer = forms.ModelChoiceField(queryset=Customers.objects.all())
-        fields = ['contract_number', 'address', 'customer', 'price', 'prepayment', 'delivery_date_by_contract', 'measurer']
+        fields = ['contract_number', 'address', 'customer', 'price', 'prepayment', 'delivery_date_by_contract']
         # Исключаем поля 'debt', 'delivery_date' и 'montage_date' из формы.
         exclude = ['debt', 'delivery_date', 'montage_date']
         labels = {
             "customer": _("Клиент"),
-            "measurer": _("Замерщик"),
         }
         widgets = {
             'delivery_date_by_contract': forms.DateInput(attrs={'type': 'date'}),
@@ -41,7 +38,10 @@ class ContractsForm(forms.ModelForm):
 
 # Заказы
 class OrdersForm(forms.ModelForm):
-    factory = forms.ModelChoiceField(queryset=Factories.objects.all())
+    factory = forms.ModelChoiceField(
+        queryset=Factories.objects.all(),
+        label=_("Завод")
+    )
 
     class Meta:
         model = Orders
@@ -53,7 +53,6 @@ class OrdersForm(forms.ModelForm):
         }
         labels = {
             "contract": _("Договор"),
-            "factory": _("Завод"),
         }
 
 
@@ -62,7 +61,12 @@ class MetricsForm(forms.ModelForm):
 
     class Meta:
         model = Metrics
-        fields = ['address', 'metrics_date', 'contacts', 'comments']
+        measurer = forms.ModelChoiceField(queryset=Measurers.objects.all())
+
+        fields = ['measurer', 'address', 'metrics_date', 'contacts', 'comments']
+        labels = {
+            "measurer": _("Замерщик"),
+        }
         widgets = {
             'metrics_date': forms.DateInput(attrs={'type': 'date'})
         }
@@ -73,11 +77,15 @@ class InstallationsForm(forms.ModelForm):
     class Meta:
         model = Installations
         contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
-        fields = ['contract', 'installation_date', 'square_meters_price', 'linear_meters', 'linear_meters_price', 'additional_works']
+        installer = forms.ModelChoiceField(queryset=Installers.objects.all())
+
+        fields = ['contract', 'installer', 'installation_date', 'square_meters_price', 'linear_meters',
+                  'linear_meters_price', 'additional_works']
         exclude = ['total_amount']
 
         labels = {
             "contract": _("Договор"),
+            "installer": _("Монтажник"),
         }
         widgets = {
             'installation_date': forms.DateInput(attrs={'type': 'date'})
@@ -89,7 +97,8 @@ class InstallationsForm(forms.ModelForm):
         # Достаем привязанный договор.
         square_meters = Orders.objects.filter(contract=instance.contract).values("square_meters")[0]['square_meters']
 
-        instance.total_amount = (float(square_meters) * instance.square_meters_price + instance.linear_meters * instance.linear_meters_price + instance.additional_works)
+        instance.total_amount = (float(square_meters) * instance.square_meters_price + instance.linear_meters *
+                                 instance.linear_meters_price + instance.additional_works)
         if commit:
             instance.save()
         return instance
