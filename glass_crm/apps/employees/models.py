@@ -1,10 +1,10 @@
 from django.db import models
 
 
-class Measurers(models.Model):
+class Measurer(models.Model):
     """ Замерщики """
 
-    name = models.CharField(max_length=255, unique=True)                                 # Замерщик.
+    name = models.CharField(max_length=255, unique=True, verbose_name='Имя замерщика')      # Замерщик.
 
     objects = models.Manager()
 
@@ -12,10 +12,10 @@ class Measurers(models.Model):
         return self.name
 
 
-class Installers(models.Model):
+class Installer(models.Model):
     """ Монтажники """
 
-    name = models.CharField(max_length=255, unique=True)                               # Монтажник.
+    name = models.CharField(max_length=255, unique=True, verbose_name='Имя монтажника')     # Монтажник.
 
     objects = models.Manager()
 

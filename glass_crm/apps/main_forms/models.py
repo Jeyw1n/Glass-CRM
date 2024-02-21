@@ -1,8 +1,8 @@
 from django.db import models
-from ..employees.models import Measurers, Installers
+from ..employees.models import Measurer, Installer
 
 
-class Customers(models.Model):
+class Customer(models.Model):
     """ Клиенты """
 
     id = models.AutoField(primary_key=True, unique=True)
@@ -18,11 +18,11 @@ class Customers(models.Model):
         return self.customer_name
 
 
-class Contracts(models.Model):
+class Contract(models.Model):
     """ Договора """
 
     # Ссылка на модель клиентов.
-    customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес
@@ -37,11 +37,11 @@ class Contracts(models.Model):
         return self.contract_number
 
 
-class Orders(models.Model):
+class Order(models.Model):
     """ Заказы """
 
     # Ссылка на модель договоров.
-    contract = models.OneToOneField(Contracts, on_delete=models.CASCADE, related_name='order')
+    contract = models.OneToOneField(Contract, on_delete=models.CASCADE, related_name='order')
 
     factory = models.CharField(max_length=255, verbose_name='Завод')                        # Завод.
     order_number = models.CharField(max_length=255, verbose_name='Номер заказа')            # Номер заказа.
@@ -54,19 +54,19 @@ class Orders(models.Model):
     objects = models.Manager()
 
 
-class Installations(models.Model):
+class Installation(models.Model):
     """
     Монтажи:
 
     Одна модель договора связывается ТОЛЬКО с одним "монтажом".
     Если контракт будет удалён, то и данный монтаж автоматически удалится,
-    так-же, если монтажник будет удалён, то значение поля установится на "Удалён".
+    так-же, если монтажник будет удалён, то и текущая запись будет так-же удалена.
     """
 
     # Ссылка на модель договоров.
-    contract = models.OneToOneField(Contracts, on_delete=models.CASCADE, related_name='installation')
+    contract = models.OneToOneField(Contract, on_delete=models.CASCADE, related_name='installation')
     # Поле монтажника со связью.
-    installer = models.ForeignKey(Installers, on_delete=models.SET("Удалён"), related_name='installer')
+    installer = models.ForeignKey(Installer, on_delete=models.CASCADE, related_name='installer')
 
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
     square_meters_price = models.FloatField(verbose_name='Стоимость квадратных метров')     # Стоимость м2.
@@ -78,14 +78,14 @@ class Installations(models.Model):
     objects = models.Manager()
 
 
-class Metrics(models.Model):
+class Metric(models.Model):
     """
     Замеры:
 
-    Если замерщик будет удалён, то значение поля установится на "Удалён".
+    Если замерщик будет удалён, то и текущая запись будет так-же удалена.
     """
     # Поле замерщика со связью.
-    measurer = models.ForeignKey(Measurers, on_delete=models.SET("Удалён"), related_name='measurer')
+    measurer = models.ForeignKey(Measurer, on_delete=models.CASCADE, related_name='measurer')
 
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
     metrics_date = models.DateField(verbose_name='Дата замера')                             # Дата замера.
@@ -95,7 +95,7 @@ class Metrics(models.Model):
     objects = models.Manager()
 
 
-class Factories(models.Model):
+class Factory(models.Model):
     """ Список заводов """
 
     factory = models.CharField(max_length=255)

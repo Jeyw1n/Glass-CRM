@@ -3,8 +3,8 @@ from django.db.models import Count, Sum, Max, OuterRef, Subquery, Prefetch
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-from .forms import CustomersForm, ContractsForm, OrdersForm, MetricsForm, InstallationsForm
-from .models import Customers, Contracts, Orders, Metrics, Installations
+from .forms import CustomerForm, ContractForm, OrderForm, MetricForm, InstallationForm
+from .models import Customer, Contract, Order, Metric, Installation
 
 # Список форм:
 # contracts, orders, clients, installations, metrics.
@@ -47,33 +47,33 @@ def create_entity(request, table_data, form_class, template_name, this_page):
 
 
 def create_customer(request):
-    table_data = Customers.objects.annotate(
-        num_contracts=Count('contracts'),     # Количество связанных договоров.
-        total_amount=Sum('contracts__price')  # Общая сумма договоров.
+    table_data = Customer.objects.annotate(
+        num_contracts=Count('contract'),     # Количество связанных договоров.
+        total_amount=Sum('contract__price')  # Общая сумма договоров.
     )
-    return create_entity(request, table_data, CustomersForm, "main_forms/customers.html", ("customers", 'Клиенты'))
+    return create_entity(request, table_data, CustomerForm, "main_forms/customers.html", ("customers", 'Клиенты'))
 
 
 def create_contract(request):
-    subquery = Installations.objects.filter(contract=OuterRef('contract_number')).order_by('installation_date').values(
+    subquery = Installation.objects.filter(contract=OuterRef('contract_number')).order_by('installation_date').values(
         'installation_date')[:1]
-    table_data = Contracts.objects.annotate(installation_date=Subquery(subquery))
-    return create_entity(request, table_data, ContractsForm, "main_forms/contracts.html", ("contracts", "Договоры"))
+    table_data = Contract.objects.annotate(installation_date=Subquery(subquery))
+    return create_entity(request, table_data, ContractForm, "main_forms/contracts.html", ("contracts", "Договоры"))
 
 
 def create_order(request):
-    table_data = Orders.objects.all()
-    return create_entity(request, table_data, OrdersForm, "main_forms/orders.html", ("orders", "Заказы"))
+    table_data = Order.objects.all()
+    return create_entity(request, table_data, OrderForm, "main_forms/orders.html", ("orders", "Заказы"))
 
 
 def create_metrics(request):
-    table_data = Metrics.objects.all()
-    return create_entity(request, table_data, MetricsForm, "main_forms/metrics.html", ("metrics", "Замеры"))
+    table_data = Metric.objects.all()
+    return create_entity(request, table_data, MetricForm, "main_forms/metrics.html", ("metrics", "Замеры"))
 
 
 def create_installation(request):
-    subquery = Orders.objects.filter(contract=OuterRef('contract')).order_by('square_meters').values(
+    subquery = Order.objects.filter(contract=OuterRef('contract')).order_by('square_meters').values(
         'square_meters')[:1]
-    table_data = Installations.objects.annotate(square_meters=Subquery(subquery))
+    table_data = Installation.objects.annotate(square_meters=Subquery(subquery))
 
-    return create_entity(request, table_data, InstallationsForm, "main_forms/installations.html", ("installations", "Монтажи"))
+    return create_entity(request, table_data, InstallationForm, "main_forms/installations.html", ("installations", "Монтажи"))

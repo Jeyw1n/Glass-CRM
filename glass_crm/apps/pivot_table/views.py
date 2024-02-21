@@ -1,17 +1,17 @@
 from django.shortcuts import render
-from ..main_forms.models import Customers, Contracts, Orders, Metrics, Installations
+from ..main_forms.models import Customer, Contract, Order, Metric, Installation
 
 
 # Cводная таблица
 # @login_required(login_url='/users/login/')
 def pivot_table_view(request):
-    contracts = Contracts.objects.all()
+    contracts = Contract.objects.all()
     table_data: list = []
 
     for c in contracts:
 
-        order = Orders.objects.filter(contract=c.id).first()
-        ini = Installations.objects.filter(contract=c.id).first()
+        order = Order.objects.filter(contract=c.id).first()
+        ini = Installation.objects.filter(contract=c.id).first()
         # metric = Metrics.objects.filter(contract=c.id).first()
 
         data: dict = {
