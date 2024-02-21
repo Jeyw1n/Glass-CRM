@@ -1,5 +1,6 @@
 from django.contrib import admin
 
-from .models import Measurers, Installers
+from .models import Measurer, Installer
 
-admin.site.register(Measurers)
+admin.site.register(Measurer)
+admin.site.register(Installer)
