@@ -1,4 +1,5 @@
 from django.db import models
+from ..employees.models import Measurers, Installers
 
 
 class Customers(models.Model):
@@ -29,7 +30,6 @@ class Contracts(models.Model):
     prepayment = models.FloatField(verbose_name='Предоплата')                               # Предоплата.
     debt = models.FloatField(verbose_name='Долг')                                           # Долг.
     delivery_date_by_contract = models.DateField(verbose_name='Дата доставки по договору')  # Дата доставки по договору.
-    measurer = models.CharField(max_length=255, verbose_name='Замерщик')                    # Замерщик
 
     objects = models.Manager()
 
@@ -55,10 +55,18 @@ class Orders(models.Model):
 
 
 class Installations(models.Model):
-    """ Монтажи """
+    """
+    Монтажи:
+
+    Одна модель договора связывается ТОЛЬКО с одним "монтажом".
+    Если контракт будет удалён, то и данный монтаж автоматически удалится,
+    так-же, если монтажник будет удалён, то значение поля установится на "Удалён".
+    """
 
     # Ссылка на модель договоров.
     contract = models.OneToOneField(Contracts, on_delete=models.CASCADE, related_name='installation')
+    # Поле монтажника со связью.
+    installer = models.ForeignKey(Installers, on_delete=models.SET("Удалён"), related_name='installer')
 
     installation_date = models.DateField(verbose_name='Дата монтажа')                       # Дата монтажа.
     square_meters_price = models.FloatField(verbose_name='Стоимость квадратных метров')     # Стоимость м2.
@@ -71,7 +79,13 @@ class Installations(models.Model):
 
 
 class Metrics(models.Model):
-    """ Замеры """
+    """
+    Замеры:
+
+    Если замерщик будет удалён, то значение поля установится на "Удалён".
+    """
+    # Поле замерщика со связью.
+    measurer = models.ForeignKey(Measurers, on_delete=models.SET("Удалён"), related_name='measurer')
 
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес.
     metrics_date = models.DateField(verbose_name='Дата замера')                             # Дата замера.

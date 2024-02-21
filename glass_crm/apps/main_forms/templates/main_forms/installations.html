@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th>Номер договора</th>
+        <th>Монтажник</th>
         <th>Адрес</th>
         <th>Дата монтажа</th>
         <th>Кол-во м<sup>2</sup></th>
@@ -21,6 +22,7 @@
       {% for row in table_data|slice:'::-1' %}
       <tr>
         <td>{{ row.contract }}</td>
+        <td>{{ row.installer }}</td>
         <td>{{ row.contract.address }}</td>  <!-- Адрес, подтянутый из договоров. -->
         <td>{{ row.installation_date }}</td>
         <td>{{ row.square_meters }}</td>

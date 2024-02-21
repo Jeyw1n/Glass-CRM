@@ -6,6 +6,7 @@
   <table>
     <thead>
       <tr>
+        <th>Замерщик</th>
         <th>Адрес</th>
         <th>Дата замера</th>
         <th>Контакты</th>
@@ -15,6 +16,7 @@
     <tbody>
       {% for row in table_data|slice:'::-1' %}
       <tr>
+        <td>{{ row.measurer }}</td>
         <td>{{ row.address }}</td>
         <td>{{ row.metrics_date }}</td>
         <td>{{ row.contacts }}</td>
