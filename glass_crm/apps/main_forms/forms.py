@@ -1,21 +1,22 @@
 from django import forms
-from .models import Customers, Contracts, Orders, Metrics, Installations, Factories
-from ..employees.models import Measurers, Installers
 from django.utils.translation import gettext_lazy as _
+
+from .models import Customer, Contract, Order, Metric, Installation, Factory
+from ..employees.models import Measurer, Installer
 
 
 # Клиенты
-class CustomersForm(forms.ModelForm):
+class CustomerForm(forms.ModelForm):
     class Meta:
-        model = Customers
+        model = Customer
         fields = ['address', 'customer_name', 'phone']
 
 
 # Договора
-class ContractsForm(forms.ModelForm):
+class ContractForm(forms.ModelForm):
     class Meta:
-        model = Contracts
-        customer = forms.ModelChoiceField(queryset=Customers.objects.all())
+        model = Contract
+        customer = forms.ModelChoiceField(queryset=Customer.objects.all())
         fields = ['contract_number', 'address', 'customer', 'price', 'prepayment', 'delivery_date_by_contract']
         # Исключаем поля 'debt', 'delivery_date' и 'montage_date' из формы.
         exclude = ['debt', 'delivery_date', 'montage_date']
@@ -37,15 +38,15 @@ class ContractsForm(forms.ModelForm):
 
 
 # Заказы
-class OrdersForm(forms.ModelForm):
+class OrderForm(forms.ModelForm):
     factory = forms.ModelChoiceField(
-        queryset=Factories.objects.all(),
+        queryset=Factory.objects.all(),
         label=_("Завод")
     )
 
     class Meta:
-        model = Orders
-        contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
+        model = Order
+        contract = forms.ModelChoiceField(queryset=Contract.objects.all())
 
         fields = ['contract', 'factory', 'order_number', 'price', 'payment', 'delivery_date', 'square_meters', 'slopes']
         widgets = {
@@ -57,11 +58,11 @@ class OrdersForm(forms.ModelForm):
 
 
 # Замеры
-class MetricsForm(forms.ModelForm):
+class MetricForm(forms.ModelForm):
 
     class Meta:
-        model = Metrics
-        measurer = forms.ModelChoiceField(queryset=Measurers.objects.all())
+        model = Metric
+        measurer = forms.ModelChoiceField(queryset=Measurer.objects.all())
 
         fields = ['measurer', 'address', 'metrics_date', 'contacts', 'comments']
         labels = {
@@ -73,11 +74,11 @@ class MetricsForm(forms.ModelForm):
 
 
 # Монтажи
-class InstallationsForm(forms.ModelForm):
+class InstallationForm(forms.ModelForm):
     class Meta:
-        model = Installations
-        contract = forms.ModelChoiceField(queryset=Contracts.objects.all())
-        installer = forms.ModelChoiceField(queryset=Installers.objects.all())
+        model = Installation
+        contract = forms.ModelChoiceField(queryset=Contract.objects.all())
+        installer = forms.ModelChoiceField(queryset=Installer.objects.all())
 
         fields = ['contract', 'installer', 'installation_date', 'square_meters_price', 'linear_meters',
                   'linear_meters_price', 'additional_works']
@@ -91,14 +92,35 @@ class InstallationsForm(forms.ModelForm):
             'installation_date': forms.DateInput(attrs={'type': 'date'})
         }
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        contract = cleaned_data.get('contract')
+
+        if not Order.objects.filter(contract=contract).exists():
+            self.add_error('contract', "Заказа на данный договор не существует! Сначала попробуйте создать заказ.")
+
+        return cleaned_data
+
     def save(self, commit=True):
         instance = super().save(commit=False)  # Вытаскиваем экземпляр без сохранения в БД.
 
-        # Достаем привязанный договор.
-        square_meters = Orders.objects.filter(contract=instance.contract).values("square_meters")[0]['square_meters']
+        # Проверяем наличие привязанного договора
+        square_meters = Order.objects.filter(contract=instance.contract).values("square_meters")[0]['square_meters']
 
-        instance.total_amount = (float(square_meters) * instance.square_meters_price + instance.linear_meters *
-                                 instance.linear_meters_price + instance.additional_works)
+        instance.total_amount = (
+                float(square_meters)
+                * instance.square_meters_price
+                + instance.linear_meters
+                * instance.linear_meters_price
+                + instance.additional_works
+        )
+
+        # Добавляем ошибку к полю contract
+        self.add_error('contract',
+                       "Заказа на данный договор не существует! Сначала попробуйте создать заказ.")
+
         if commit:
             instance.save()
         return instance
+
