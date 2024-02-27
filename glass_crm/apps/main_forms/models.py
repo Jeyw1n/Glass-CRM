@@ -24,6 +24,9 @@ class Contract(models.Model):
     # Ссылка на модель клиентов.
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
+    # Поле замерщика - обычное текстовое поле. Связи нет, чтобы не удалять заказ в случае удаления замерщика.
+    measurer = models.CharField(max_length=255, verbose_name='Замерщик')
+
     contract_number = models.CharField(max_length=255, verbose_name='Номер договора')       # Номер договора.
     address = models.CharField(max_length=255, verbose_name='Адрес')                        # Адрес
     price = models.FloatField(verbose_name='Цена')                                          # Цена.

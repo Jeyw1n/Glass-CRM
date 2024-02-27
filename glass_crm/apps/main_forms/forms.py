@@ -14,10 +14,15 @@ class CustomerForm(forms.ModelForm):
 
 # Договора
 class ContractForm(forms.ModelForm):
+    measurer = forms.ModelChoiceField(
+        queryset=Measurer.objects.all(),
+        label=_("Замерщик")
+    )
+
     class Meta:
         model = Contract
         customer = forms.ModelChoiceField(queryset=Customer.objects.all())
-        fields = ['contract_number', 'address', 'customer', 'price', 'prepayment', 'delivery_date_by_contract']
+        fields = ['contract_number', 'address', 'customer', 'measurer', 'price', 'prepayment', 'delivery_date_by_contract']
         # Исключаем поля 'debt', 'delivery_date' и 'montage_date' из формы.
         exclude = ['debt', 'delivery_date', 'montage_date']
         labels = {
