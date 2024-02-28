@@ -11,6 +11,7 @@
         <th>Телефон</th>
         <th>Кол-во договоров</th>
         <th>Стоимость договоров</th>
+        <th class="action-field"><b>Действия</b></th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,9 @@
         <td>{{ row.phone }}</td>
         <td>{{ row.num_contracts }}</td>
         <td>{{ row.total_amount }}</td>
+        <td class="action-field">
+          {% include "main_forms/snippet/action_buttons.html" %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

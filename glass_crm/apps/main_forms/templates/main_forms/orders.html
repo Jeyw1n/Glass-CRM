@@ -15,6 +15,7 @@
         <th>Дата доставки от завода</th>
         <th>м<sup>2</sup></th>
         <th>Откосы</th>
+        <th class="action-field"><b>Действия</b></th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,9 @@
         <td>{{ row.delivery_date }}</td>
         <td>{{ row.square_meters }}</td>
         <td>{{ row.slopes }}</td>
+        <td class="action-field">
+          {% include "main_forms/snippet/action_buttons.html" %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

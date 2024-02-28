@@ -1,0 +1,6 @@
+<form method="POST" action="{% url 'delete_item' model_name='Customer' row_id=row.id redirect_name='create_customer'  %}">
+    {% csrf_token %}
+    <button class="action-field" type="submit">
+        <i class="material-icons md-18" style="margin: 0;">delete</i>
+    </button>
+</form>

@@ -16,6 +16,7 @@
         <th>Стоимость м/п</th>
         <th>Доп. работы</th>
         <th>Сумма</th>
+        <th class="action-field"><b>Действия</b></th>
       </tr>
     </thead>
     <tbody>
@@ -31,6 +32,9 @@
         <td>{{ row.linear_meters_price }}</td>
         <td>{{ row.additional_works }}</td>
         <td>{{ row.total_amount }}</td>
+        <td class="action-field">
+          {% include "main_forms/snippet/action_buttons.html" %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

@@ -17,6 +17,7 @@
         <th>Дата монтажа</th>
         <th>Дата доставки по договору</th>
         <th>Замерщик</th>
+        <th class="action-field"><b>Действия</b></th>
       </tr>
     </thead>
     <tbody>
@@ -33,6 +34,9 @@
         <td>{{ row.installation_date }}</td>
         <td>{{ row.delivery_date_by_contract }}</td>
         <td>{{ row.measurer }}</td>
+        <td class="action-field">
+          {% include "main_forms/snippet/action_buttons.html" %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

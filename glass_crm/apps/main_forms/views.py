@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count, Sum, Max, OuterRef, Subquery, Prefetch
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
+from django.apps import apps
 
 from .forms import CustomerForm, ContractForm, OrderForm, MetricForm, InstallationForm
 from .models import Customer, Contract, Order, Metric, Installation
@@ -77,3 +79,12 @@ def create_installation(request):
     table_data = Installation.objects.annotate(square_meters=Subquery(subquery))
 
     return create_entity(request, table_data, InstallationForm, "main_forms/installations.html", ("installations", "Монтажи"))
+
+
+# Удаление записи в таблице.
+@staff_member_required
+def delete_item(request, model_name, row_id, redirect_name):
+    model = apps.get_model(app_label='main_forms', model_name=model_name)
+    row = model.objects.get(id=row_id)
+    row.delete()
+    return redirect(redirect_name)  # перенаправьте на страницу, которую вы передали в шаблоне

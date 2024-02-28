@@ -18,9 +18,11 @@ th {
     padding: 8px 12px;
     font-weight: 500;
     text-align: left;
+    border: 1px solid #ededed;
 }
 
 td {
+    min-width: 132px;
     padding: 6px 8px;
     border: 1px solid #f5f5f5;
 }
@@ -33,4 +35,34 @@ td {
     margin: 0 auto;
     width: 94%;
     touch-action: none;
+}
+
+
+/* Поля действий (пока-что только кнопка удаления) */
+th.action-field {
+    text-align: center;
+    background-color: #b7d8a5;
+}
+
+td.action-field {
+    min-width: auto;
+    background-color: #dcebd4;;
+    width: 0px;
+}
+
+button.action-field {
+    border: none;
+    background-color: #e45a5a;
+    border-radius: 4px;
+    color: white;
+}
+button.action-field:hover {
+    background-color: #ee2c2c;
+}
+td.action-field form {
+    padding: 0;
+    justify-content: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
 }
