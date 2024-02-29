@@ -23,7 +23,12 @@
         <td>{{ row.contacts }}</td>
         <td>{{ row.comments }}</td>
         <td class="action-field">
-          {% include "main_forms/snippet/action_buttons.html" %}
+          <form method="POST" action="{% url 'delete_item' model_name='Metric' row_id=row.id redirect_name='create_metrics'  %}">
+            {% csrf_token %}
+            <button class="action-field" type="submit">
+              <i class="material-icons md-18" style="margin: 0;">delete</i>
+            </button>
+          </form>
         </td>
       </tr>
       {% endfor %}

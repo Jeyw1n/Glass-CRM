@@ -35,7 +35,12 @@
         <td>{{ row.delivery_date_by_contract }}</td>
         <td>{{ row.measurer }}</td>
         <td class="action-field">
-          {% include "main_forms/snippet/action_buttons.html" %}
+          <form method="POST" action="{% url 'delete_item' model_name='Contract' row_id=row.id redirect_name='create_contract'  %}">
+            {% csrf_token %}
+            <button class="action-field" type="submit">
+              <i class="material-icons md-18" style="margin: 0;">delete</i>
+            </button>
+          </form>
         </td>
       </tr>
       {% endfor %}

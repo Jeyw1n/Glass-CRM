@@ -31,7 +31,13 @@
         <td>{{ row.square_meters }}</td>
         <td>{{ row.slopes }}</td>
         <td class="action-field">
-          {% include "main_forms/snippet/action_buttons.html" %}
+
+          <form method="POST" action="{% url 'delete_item' model_name='Order' row_id=row.id redirect_name='create_order'  %}">
+            {% csrf_token %}
+            <button class="action-field" type="submit">
+              <i class="material-icons md-18" style="margin: 0;">delete</i>
+            </button>
+          </form>
         </td>
       </tr>
       {% endfor %}
