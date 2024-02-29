@@ -22,7 +22,8 @@ class ContractForm(forms.ModelForm):
     class Meta:
         model = Contract
         customer = forms.ModelChoiceField(queryset=Customer.objects.all())
-        fields = ['contract_number', 'address', 'customer', 'measurer', 'price', 'prepayment', 'delivery_date_by_contract']
+        fields = ['contract_number', 'address', 'customer', 'measurer', 'price', 'prepayment',
+                  'delivery_date_by_contract']
         # Исключаем поля 'debt', 'delivery_date' и 'montage_date' из формы.
         exclude = ['debt', 'delivery_date', 'montage_date']
         labels = {
@@ -64,7 +65,6 @@ class OrderForm(forms.ModelForm):
 
 # Замеры
 class MetricForm(forms.ModelForm):
-
     class Meta:
         model = Metric
         measurer = forms.ModelChoiceField(queryset=Measurer.objects.all())
@@ -129,3 +129,9 @@ class InstallationForm(forms.ModelForm):
             instance.save()
         return instance
 
+
+# Форма добавления завода.
+class FactoryForm(forms.ModelForm):
+    class Meta:
+        model = Factory
+        fields = ['factory']

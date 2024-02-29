@@ -5,8 +5,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
 from django.apps import apps
 
-from .forms import CustomerForm, ContractForm, OrderForm, MetricForm, InstallationForm
-from .models import Customer, Contract, Order, Metric, Installation
+from .forms import CustomerForm, ContractForm, OrderForm, MetricForm, InstallationForm, FactoryForm
+from .models import Customer, Contract, Order, Metric, Installation, Factory
 
 # Список форм:
 # contracts, orders, clients, installations, metrics.
@@ -88,3 +88,9 @@ def delete_item(request, model_name, row_id, redirect_name):
     row = model.objects.get(id=row_id)
     row.delete()
     return redirect(redirect_name)  # перенаправьте на страницу, которую вы передали в шаблоне
+
+
+def add_factory(request):
+    table_data = Factory.objects.all()
+    return create_entity(request, table_data, FactoryForm, "main_forms/factories.html", ("factories", "Список заводов"))
+

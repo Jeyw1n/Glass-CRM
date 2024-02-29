@@ -1,0 +1,47 @@
+{% extends "main_forms/base.html" %}
+
+{% block form_block %}
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+          <th>ID</th>
+          <th>Название завода</th>
+          <th class="action-field"><b>Действия</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table_data|slice:'::-1' %}
+      <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.factory }}</td>
+        <td class="action-field">
+          <form method="POST" action="{% url 'delete_item' model_name='Factory' row_id=row.id redirect_name='add_factory'  %}">
+            {% csrf_token %}
+            <button class="action-field" type="submit">
+              <i class="material-icons md-18" style="margin: 0;">delete</i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="resize-handle"></div>
+
+<!--
+Блок формы:
+Форма доступна только суперпользователям.
+-->
+{% if user.is_superuser %}
+<!-- Тут нужно назначить редирект на обработчик POST запроса. -->
+<form action="{% url 'add_factory' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_div }}
+  <br>
+  <button class="sumbit-button col-dark-1" type="submit" name="submit">Отправить</button>
+</form>
+{% endif %}
+{% endblock %}

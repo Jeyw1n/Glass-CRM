@@ -19,6 +19,8 @@ urlpatterns = [
     path("forms/customers", views.create_customer, name="create_customer"),
     path("forms/metrics", views.create_metrics, name="create_metrics"),
     path("forms/installations", views.create_installation, name="create_installation"),
+    path("forms/factories", views.add_factory, name="add_factory"),
+
     path("forms/pivot_table", pivot_table_view, name="pivot_table"),
 
     path("forms/measurers", create_measurer, name="create_measurer"),

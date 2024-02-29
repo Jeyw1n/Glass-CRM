@@ -101,7 +101,8 @@ class Metric(models.Model):
 class Factory(models.Model):
     """ Список заводов """
 
-    factory = models.CharField(max_length=255)
+    factory = models.CharField(max_length=255, verbose_name='Завод')
+
     objects = models.Manager()
 
     def __str__(self):
