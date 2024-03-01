@@ -1,50 +1,48 @@
 {% extends "main_forms/base.html" %}
-
 {% block form_block %}
 
 <div class="table-container">
-  <table>
+<table>
 
-    <thead>
-      <tr>
+<thead>
+  <tr>
 
-        {% for field in fields %}
-        <th>{{ field }}</th>
-        {% endfor %}
+    {% block th %}
+    {% endblock %}
 
-        <!-- Заголовок действий. -->
-        {% if user.is_superuser %}
-        <th class="action-field"><b>Действия</b></th>
-        {% endif %}
-        <!-- -->
+    <!-- Заголовок действий. -->
+    {% if user.is_superuser %}
+    <th class="action-field"><b>Действия</b></th>
+    {% endif %}
+    <!-- -->
 
-      </tr>
-    </thead>
+  </tr>
+</thead>
 
-    <tbody>
-        {% for row in model_data|slice:'::-1' %}
-        <tr>
-          {% for field in fields %}
-          <td>{{ row.field }}</td>
-          {% endfor %}
+<tbody>
+  {% for row in model_data|slice:'::-1' %}
+  <tr>
 
-          <!-- Поле с кнопками действий, доступными только суперпользователям. -->
-          {% if user.is_superuser %}
-          <td class="action-field">
-            <form method="POST" action="{% url 'delete_item' this_model=this_model row_id=row.id this_page=this_page  %}">
-              {% csrf_token %}
-              <button class="action-field" type="submit">
-                <i class="material-icons md-18" style="margin: 0;">delete</i>
-              </button>
-            </form>
-          </td>
-          {% endif %}
-          <!---->
-        </tr>
-        {% endfor %}
-    </tbody>
+    {% block td %}
+    {% endblock %}
 
-  </table>
+    <!-- Поле с кнопками действий, доступными только суперпользователям. -->
+    {% if user.is_superuser %}
+    <td class="action-field">
+      <form method="POST" action="{% url 'delete_item' this_model=this_model row_id=row.id this_page=this_page  %}">
+        {% csrf_token %}
+        <button class="action-field" type="submit">
+          <i class="material-icons md-18" style="margin: 0;">delete</i>
+        </button>
+      </form>
+    </td>
+    {% endif %}
+    <!---->
+  </tr>
+  {% endfor %}
+</tbody>
+
+</table>
 </div>
 
 <div class="resize-handle"></div>
@@ -59,4 +57,5 @@
 </form>
 {% endif %}
 <!-- -->
+
 {% endblock %}

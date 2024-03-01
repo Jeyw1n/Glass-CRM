@@ -6,16 +6,18 @@
   <table>
     <thead>
       <tr>
-          <th>ID</th>
-          <th>Название завода</th>
-          <th class="action-field"><b>Действия</b></th>
+        {% for field in fields %}
+        <th>{{ field }}</th>
+        {% endfor %}
+        <th class="action-field"><b>Действия</b></th>
       </tr>
     </thead>
     <tbody>
       {% for row in table_data|slice:'::-1' %}
       <tr>
-        <td>{{ row.id }}</td>
-        <td>{{ row.factory }}</td>
+        {% for field in fields %}
+        <th>{{ row.field }}</th>
+        {% endfor %}
         <!--
         Поле с кнопками действий, доступными только суперпользователям.
         -->
