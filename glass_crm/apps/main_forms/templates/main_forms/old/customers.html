@@ -22,6 +22,10 @@
         <td>{{ row.phone }}</td>
         <td>{{ row.num_contracts }}</td>
         <td>{{ row.total_amount }}</td>
+        <!--
+        Поле с кнопками действий, доступными только суперпользователям.
+        -->
+        {% if user.is_superuser %}
         <td class="action-field">
           <form method="POST" action="{% url 'delete_item' model_name='Customer' row_id=row.id redirect_name='create_customer'  %}">
             {% csrf_token %}

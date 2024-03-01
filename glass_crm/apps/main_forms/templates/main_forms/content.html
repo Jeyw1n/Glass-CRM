@@ -1,0 +1,62 @@
+{% extends "main_forms/base.html" %}
+
+{% block form_block %}
+
+<div class="table-container">
+  <table>
+
+    <thead>
+      <tr>
+
+        {% for field in fields %}
+        <th>{{ field }}</th>
+        {% endfor %}
+
+        <!-- Заголовок действий. -->
+        {% if user.is_superuser %}
+        <th class="action-field"><b>Действия</b></th>
+        {% endif %}
+        <!-- -->
+
+      </tr>
+    </thead>
+
+    <tbody>
+        {% for row in model_data|slice:'::-1' %}
+        <tr>
+          {% for field in fields %}
+          <td>{{ row.field }}</td>
+          {% endfor %}
+
+          <!-- Поле с кнопками действий, доступными только суперпользователям. -->
+          {% if user.is_superuser %}
+          <td class="action-field">
+            <form method="POST" action="{% url 'delete_item' this_model=this_model row_id=row.id this_page=this_page  %}">
+              {% csrf_token %}
+              <button class="action-field" type="submit">
+                <i class="material-icons md-18" style="margin: 0;">delete</i>
+              </button>
+            </form>
+          </td>
+          {% endif %}
+          <!---->
+        </tr>
+        {% endfor %}
+    </tbody>
+
+  </table>
+</div>
+
+<div class="resize-handle"></div>
+
+<!-- Блок формы: Форма доступна только суперпользователям. -->
+{% if user.is_superuser %}
+<form action="{% url this_page %}" method="post">
+  {% csrf_token %}
+  {{ form.as_div }}
+  <br>
+  <button class="sumbit-button col-dark-1" type="submit" name="submit">Отправить</button>
+</form>
+{% endif %}
+<!-- -->
+{% endblock %}

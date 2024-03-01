@@ -8,19 +8,18 @@ from django.apps import apps
 from .forms import CustomerForm, ContractForm, OrderForm, MetricForm, InstallationForm, FactoryForm
 from .models import Customer, Contract, Order, Metric, Installation, Factory
 
-# Список форм:
-# contracts, orders, clients, installations, metrics.
+REGISTER_URL = 'users:register'
+LOGIN_URL = 'users:login'
+LOGOUT_URL = 'users:logout'
 
 
 # Шаблон страницы с формой.
-
 # @login_required(login_url='/users/login/')
 def create_entity(request, table_data, form_class, template_name, this_page):
-    
     register_url = reverse('users:register')
     login_url = reverse('users:login')
     logout_url = reverse('users:logout')
-    
+
     # Если это POST запрос.
     if request.method == 'POST':
         form = form_class(request.POST)
@@ -39,18 +38,18 @@ def create_entity(request, table_data, form_class, template_name, this_page):
         "form": form,
         "this_page": this_page[0],
         "page_label": this_page[1],
-        
+
         'register_url': register_url,
         'login_url': login_url,
         'logout_url': logout_url,
     }
-    
+
     return render(request, template_name, context=context)
 
 
 def create_customer(request):
     table_data = Customer.objects.annotate(
-        num_contracts=Count('contract'),     # Количество связанных договоров.
+        num_contracts=Count('contract'),  # Количество связанных договоров.
         total_amount=Sum('contract__price')  # Общая сумма договоров.
     )
     return create_entity(request, table_data, CustomerForm, "main_forms/customers.html", ("customers", 'Клиенты'))
@@ -78,19 +77,52 @@ def create_installation(request):
         'square_meters')[:1]
     table_data = Installation.objects.annotate(square_meters=Subquery(subquery))
 
-    return create_entity(request, table_data, InstallationForm, "main_forms/installations.html", ("installations", "Монтажи"))
+    return create_entity(request, table_data, InstallationForm, "main_forms/installations.html",
+                         ("installations", "Монтажи"))
 
 
 # Удаление записи в таблице.
 @staff_member_required
-def delete_item(request, model_name, row_id, redirect_name):
-    model = apps.get_model(app_label='main_forms', model_name=model_name)
+def delete_item(request, this_model, row_id, this_page):
+    model = apps.get_model(app_label='main_forms', model_name=this_model)
     row = model.objects.get(id=row_id)
     row.delete()
-    return redirect(redirect_name)  # перенаправьте на страницу, которую вы передали в шаблоне
+    return redirect(this_page)  # перенаправьте на страницу, которую вы передали в шаблоне
 
 
 def add_factory(request):
-    table_data = Factory.objects.all()
-    return create_entity(request, table_data, FactoryForm, "main_forms/factories.html", ("factories", "Список заводов"))
+    """ Представление добавления завода. """
 
+    model_data = Factory.objects.all()   # Все объекты модели
+    fields = [field.verbose_name for field in Factory._meta.get_fields() if field.concrete]
+    form_class = FactoryForm             # Класс формы.
+    this_page = "add_factory"            # Используется для добавления стилей меню и перенаправления.
+    page_label = "Заводы"                # Заголовок страницы.
+    this_model = "Factory"
+
+    # Если это POST запрос.
+    if request.method == 'POST':
+        form = form_class(request.POST)
+        # Была ли нам предоставлена действительная форма?
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.save()
+    # Если это GET запрос (или какой-либо ещё).
+    else:
+        form = form_class
+
+    context = {
+        'model_data': model_data,
+        'fields': fields,
+
+        "this_page": this_page,
+        "page_label": page_label,
+        "form": form,
+        "this_model": this_model,
+
+        'register_url': reverse(REGISTER_URL),
+        'login_url': reverse(LOGIN_URL),
+        'logout_url': reverse(LOGOUT_URL),
+    }
+
+    return render(request, "main_forms/content.html", context=context)

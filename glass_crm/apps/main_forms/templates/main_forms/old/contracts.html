@@ -34,6 +34,10 @@
         <td>{{ row.installation_date }}</td>
         <td>{{ row.delivery_date_by_contract }}</td>
         <td>{{ row.measurer }}</td>
+        <!--
+        Поле с кнопками действий, доступными только суперпользователям.
+        -->
+        {% if user.is_superuser %}
         <td class="action-field">
           <form method="POST" action="{% url 'delete_item' model_name='Contract' row_id=row.id redirect_name='create_contract'  %}">
             {% csrf_token %}

@@ -16,6 +16,10 @@
       <tr>
         <td>{{ row.id }}</td>
         <td>{{ row.factory }}</td>
+        <!--
+        Поле с кнопками действий, доступными только суперпользователям.
+        -->
+        {% if user.is_superuser %}
         <td class="action-field">
           <form method="POST" action="{% url 'delete_item' model_name='Factory' row_id=row.id redirect_name='add_factory'  %}">
             {% csrf_token %}
@@ -24,6 +28,8 @@
             </button>
           </form>
         </td>
+        {% endif %}
+        <!---->
       </tr>
       {% endfor %}
     </tbody>
@@ -44,4 +50,5 @@
   <button class="sumbit-button col-dark-1" type="submit" name="submit">Отправить</button>
 </form>
 {% endif %}
+<!---->
 {% endblock %}

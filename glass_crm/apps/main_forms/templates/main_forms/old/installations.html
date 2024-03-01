@@ -32,6 +32,10 @@
         <td>{{ row.linear_meters_price }}</td>
         <td>{{ row.additional_works }}</td>
         <td>{{ row.total_amount }}</td>
+        <!--
+        Поле с кнопками действий, доступными только суперпользователям.
+        -->
+        {% if user.is_superuser %}
         <td class="action-field">
           <form method="POST" action="{% url 'delete_item' model_name='Installation' row_id=row.id redirect_name='create_installation'  %}">
             {% csrf_token %}

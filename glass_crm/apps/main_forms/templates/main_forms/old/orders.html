@@ -30,8 +30,11 @@
         <td>{{ row.delivery_date }}</td>
         <td>{{ row.square_meters }}</td>
         <td>{{ row.slopes }}</td>
+        <!--
+        Поле с кнопками действий, доступными только суперпользователям.
+        -->
+        {% if user.is_superuser %}
         <td class="action-field">
-
           <form method="POST" action="{% url 'delete_item' model_name='Order' row_id=row.id redirect_name='create_order'  %}">
             {% csrf_token %}
             <button class="action-field" type="submit">

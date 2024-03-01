@@ -22,6 +22,10 @@
         <td>{{ row.metrics_date }}</td>
         <td>{{ row.contacts }}</td>
         <td>{{ row.comments }}</td>
+        <!--
+        Поле с кнопками действий, доступными только суперпользователям.
+        -->
+        {% if user.is_superuser %}
         <td class="action-field">
           <form method="POST" action="{% url 'delete_item' model_name='Metric' row_id=row.id redirect_name='create_metrics'  %}">
             {% csrf_token %}

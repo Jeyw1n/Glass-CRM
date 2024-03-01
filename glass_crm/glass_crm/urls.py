@@ -26,5 +26,5 @@ urlpatterns = [
     path("forms/measurers", create_measurer, name="create_measurer"),
     path("forms/installers", create_installer, name="create_installer"),
 
-    path('delete/<str:model_name>/<int:row_id>/<str:redirect_name>/', views.delete_item, name='delete_item'),
+    path('delete/<str:this_model>/<int:row_id>/<str:this_page>/', views.delete_item, name='delete_item'),
 ]
