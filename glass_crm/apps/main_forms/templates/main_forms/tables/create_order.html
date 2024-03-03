@@ -1,0 +1,25 @@
+{% extends "main_forms/content.html" %}
+
+{% block th %}
+<th>Номер договора</th>
+<th>Адрес</th>
+<th>Завод</th>
+<th>Номер заказа</th>
+<th>Стоимость</th>
+<th>Оплата</th>
+<th>Дата доставки от завода</th>
+<th>м<sup>2</sup></th>
+<th>Откосы</th>
+{% endblock %}
+
+{% block td %}
+<td>{{ row.contract.contract_number }}</td>  <!-- Связанный номер договора. -->
+<td>{{ row.contract.address }}</td>  <!-- Связанный адрес из договора. -->
+<td>{{ row.factory }}</td>
+<td>{{ row.order_number }}</td>
+<td>{{ row.price }}</td>
+<td>{{ row.payment }}</td>
+<td>{{ row.delivery_date }}</td>
+<td>{{ row.square_meters }}</td>
+<td>{{ row.slopes }}</td>
+{% endblock %}

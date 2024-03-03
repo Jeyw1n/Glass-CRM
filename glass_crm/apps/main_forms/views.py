@@ -8,6 +8,7 @@ from django.apps import apps
 from .forms import CustomerForm, ContractForm, OrderForm, MetricForm, InstallationForm, FactoryForm
 from .models import Customer, Contract, Order, Metric, Installation, Factory
 
+
 REGISTER_URL = 'users:register'
 LOGIN_URL = 'users:login'
 LOGOUT_URL = 'users:logout'

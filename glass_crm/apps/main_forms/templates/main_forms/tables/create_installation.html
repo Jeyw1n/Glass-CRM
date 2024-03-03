@@ -1,0 +1,26 @@
+{% extends "main_forms/content.html" %}
+
+{% block th %}<th>Номер договора</th>
+<th>Монтажник</th>
+<th>Адрес</th>
+<th>Дата монтажа</th>
+<th>Кол-во м<sup>2</sup></th>
+<th>Стоимость м<sup>2</sup></th>
+<th>Кол-во м/п</th>
+<th>Стоимость м/п</th>
+<th>Доп. работы</th>
+<th>Сумма</th>
+{% endblock %}
+
+{% block td %}
+<td>{{ row.contract }}</td>
+<td>{{ row.installer }}</td>
+<td>{{ row.contract.address }}</td>  <!-- Адрес, подтянутый из договоров. -->
+<td>{{ row.installation_date }}</td>
+<td>{{ row.square_meters }}</td>
+<td>{{ row.square_meters_price }}</td>
+<td>{{ row.linear_meters }}</td>
+<td>{{ row.linear_meters_price }}</td>
+<td>{{ row.additional_works }}</td>
+<td>{{ row.total_amount }}</td>
+{% endblock %}

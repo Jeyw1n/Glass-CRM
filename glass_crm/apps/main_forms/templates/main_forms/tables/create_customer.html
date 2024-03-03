@@ -1,0 +1,17 @@
+{% extends "main_forms/content.html" %}
+
+{% block th %}
+<th>ФИО клиенты</th>
+<th>Адрес</th>
+<th>Телефон</th>
+<th>Кол-во договоров</th>
+<th>Стоимость договоров</th>
+{% endblock %}
+
+{% block td %}
+<td>{{ row.customer_name }}</td>
+<td>{{ row.address }}</td>
+<td>{{ row.phone }}</td>
+<td>{{ row.num_contracts }}</td>
+<td>{{ row.total_amount }}</td>
+{% endblock %}

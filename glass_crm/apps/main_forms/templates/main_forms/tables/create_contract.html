@@ -1,0 +1,29 @@
+{% extends "main_forms/content.html" %}
+
+{% block th %}
+<th>Номер договора</th>
+<th>Адрес</th>
+<th>ФИО клиента</th>
+<th>Телефон</th>
+<th>Замерщик</th>
+<th>Цена</th>
+<th>Предоплата</th>
+<th>Долг</th>
+<th>Дата монтажа</th>
+<th>Дата доставки по договору</th>
+<th>Замерщик</th>
+{% endblock %}
+
+{% block td %}
+<td>{{ row.contract_number }}</td>
+<td>{{ row.address }}</td>
+<td>{{ row.customer.customer_name }}</td>
+<td>{{ row.customer.phone }}</td>
+<td>{{ row.measurer }}</td>
+<td>{{ row.price }}</td>
+<td>{{ row.prepayment }}</td>
+<td>{{ row.debt }}</td>
+<td>{{ row.installation_date }}</td>
+<td>{{ row.delivery_date_by_contract }}</td>
+<td>{{ row.measurer }}</td>
+{% endblock %}
