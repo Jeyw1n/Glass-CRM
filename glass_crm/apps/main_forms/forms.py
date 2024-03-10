@@ -121,10 +121,6 @@ class InstallationForm(forms.ModelForm):
                 + instance.additional_works
         )
 
-        # Добавляем ошибку к полю contract
-        self.add_error('contract',
-                       "Заказа на данный договор не существует! Сначала попробуйте создать заказ.")
-
         if commit:
             instance.save()
         return instance

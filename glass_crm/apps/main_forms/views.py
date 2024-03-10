@@ -1,46 +1,15 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count, Sum, Max, OuterRef, Subquery, Prefetch
-from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.urls import reverse
 from django.apps import apps
+
+import utils.SimplifiedViews as sv
 
 from .forms import CustomerForm, ContractForm, OrderForm, MetricForm, InstallationForm, FactoryForm
 from .models import Customer, Contract, Order, Metric, Installation, Factory
 
 
-REGISTER_URL = 'users:register'
-LOGIN_URL = 'users:login'
-LOGOUT_URL = 'users:logout'
-
-
-@login_required(login_url='/users/login/')
-def create_entity(request, model_data, form_class, this_page, page_label, this_model):
-    """ Универсальный шаблон представления форм и таблиц. """
-
-    # Если это POST запрос.
-    if request.method == 'POST':
-        form = form_class(request.POST)
-        # Была ли нам предоставлена действительная форма?
-        if form.is_valid():
-            task = form.save(commit=False)
-            task.save()
-    # Если это GET запрос (или какой-либо ещё).
-    else:
-        form = form_class
-
-    context = {
-        'model_data': model_data,
-        "this_page": this_page,
-        "page_label": page_label,
-        "form": form,
-        "this_model": this_model,
-        'register_url': reverse(REGISTER_URL),
-        'login_url': reverse(LOGIN_URL),
-        'logout_url': reverse(LOGOUT_URL),
-    }
-
-    return render(request, f"main_forms/tables/{this_page}.html", context=context)
+APP_PATH = "main_forms/tables/"
 
 
 def create_customer(request):
@@ -54,7 +23,7 @@ def create_customer(request):
     page_label = "Клиенты"
     this_model = "Customer"
 
-    return create_entity(request, model_data, form_class, this_page, page_label, this_model)
+    return sv.create_entity(request, model_data, form_class, this_page, page_label, this_model, APP_PATH)
 
 
 def create_contract(request):
@@ -67,7 +36,7 @@ def create_contract(request):
     page_label = "Договоры"
     this_model = "Contract"
 
-    return create_entity(request, model_data, form_class, this_page, page_label, this_model)
+    return sv.create_entity(request, model_data, form_class, this_page, page_label, this_model, APP_PATH)
 
 
 def create_order(request):
@@ -78,7 +47,7 @@ def create_order(request):
     page_label = "Заказы"
     this_model = "Order"
 
-    return create_entity(request, model_data, form_class, this_page, page_label, this_model)
+    return sv.create_entity(request, model_data, form_class, this_page, page_label, this_model, APP_PATH)
 
 
 def create_metrics(request):
@@ -89,7 +58,7 @@ def create_metrics(request):
     page_label = "Замеры"
     this_model = "Metric"
 
-    return create_entity(request, model_data, form_class, this_page, page_label, this_model)
+    return sv.create_entity(request, model_data, form_class, this_page, page_label, this_model, APP_PATH)
 
 
 def create_installation(request):
@@ -101,7 +70,7 @@ def create_installation(request):
     page_label = "Монтажи"
     this_model = "Installation"
 
-    return create_entity(request, model_data, form_class, this_page, page_label, this_model)
+    return sv.create_entity(request, model_data, form_class, this_page, page_label, this_model, APP_PATH)
 
 
 def add_factory(request):
@@ -112,14 +81,14 @@ def add_factory(request):
     page_label = "Заводы"                 # Заголовок страницы.
     this_model = "Factory"                # Название модели.
 
-    return create_entity(request, model_data, form_class, this_page, page_label, this_model)
+    return sv.create_entity(request, model_data, form_class, this_page, page_label, this_model, APP_PATH)
 
 
 @staff_member_required
 def delete_item(request, this_model, row_id, this_page):
     """ Отвечает за удаление записей в таблице. """
 
-    model = apps.get_model(app_label='main_forms', model_name=this_model)
+    model = apps.get_model(app_label="main_forms", model_name=this_model)
     row = model.objects.get(id=row_id)
     row.delete()
     return redirect(this_page)  # Перенаправьте на страницу, которую вы передали в шаблоне.

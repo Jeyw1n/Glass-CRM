@@ -1,58 +1,44 @@
-from django.shortcuts import render
-from django.urls import reverse
+from django.contrib.admin.views.decorators import staff_member_required
+from django.apps import apps
+from django.shortcuts import redirect
+
+import utils.SimplifiedViews as sv
+
 from .models import Measurer, Installer
 from .forms import MeasurersForm, InstallersForm
 
 
-def create_entity(request, table_data, form_class, template_name, this_page):
-    register_url = reverse('users:register')
-    login_url = reverse('users:login')
-    logout_url = reverse('users:logout')
-
-    # Если это POST запрос.
-    if request.method == 'POST':
-        form = form_class(request.POST)
-
-        # Была ли нам предоставлена действительная форма?
-        if form.is_valid():
-            task = form.save(commit=False)
-            task.save()
-
-    # Если это GET запрос (или какой-либо ещё).
-    else:
-        form = form_class
-
-    context = {
-        'table_data': table_data,
-        "form": form,
-        "this_page": this_page[0],
-        "page_label": this_page[1],
-
-        'register_url': register_url,
-        'login_url': login_url,
-        'logout_url': logout_url,
-    }
-
-    return render(request, template_name, context=context)
+# Утилита для создания представлений форм с таблицами.
+APP_PATH = "employees/"
 
 
 def create_measurer(request):
-    table_data = Measurer.objects.all()
-    return create_entity(
-        request,
-        table_data,
-        MeasurersForm,
-        "employees/measurers.html",
-        ("measurers", 'Замерщики')
-    )
+
+    model_data = Measurer.objects.all()
+    form_class = MeasurersForm
+    this_page = "create_measurer"
+    page_label = "Замерщики"
+    this_model = "Measurer"
+
+    return sv.create_entity(request, model_data, form_class, this_page, page_label, this_model, APP_PATH)
 
 
 def create_installer(request):
-    table_data = Installer.objects.all()
-    return create_entity(
-        request,
-        table_data,
-        InstallersForm,
-        "employees/installers.html",
-        ("installers", 'Монтажники')
-    )
+
+    model_data = Installer.objects.all()
+    form_class = InstallersForm
+    this_page = "create_installer"
+    page_label = "Монтажники"
+    this_model = "Installer"
+
+    return sv.create_entity(request, model_data, form_class, this_page, page_label, this_model, APP_PATH)
+
+
+@staff_member_required
+def delete_empl(request, this_model, row_id, this_page):
+    """ Отвечает за удаление записей в таблице. """
+
+    model = apps.get_model(app_label="employees", model_name=this_model)
+    row = model.objects.get(id=row_id)
+    row.delete()
+    return redirect(this_page)

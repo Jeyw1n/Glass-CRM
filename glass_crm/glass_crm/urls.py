@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 from apps.main_forms import views
 from apps.pivot_table.views import pivot_table_view
-from apps.employees.views import create_measurer, create_installer
+from apps.employees.views import create_measurer, create_installer, delete_empl
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,4 +27,6 @@ urlpatterns = [
     path("forms/installers", create_installer, name="create_installer"),
 
     path('delete/<str:this_model>/<int:row_id>/<str:this_page>/', views.delete_item, name='delete_item'),
+    path('delete_empl/<str:this_model>/<int:row_id>/<str:this_page>/', delete_empl, name='delete_empl'),
+
 ]
